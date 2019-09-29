@@ -1,32 +1,39 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 3 - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>SplitWiser - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level3</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level3"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>AddressBook Level 3 - User Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level3</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level3"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>SplitWiser - User Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By: <code>Team SE-EDU</code>      Since: <code>Jun 2016</code>      Licence: <code>MIT</code></p>
+<p>By: <code>Vortex</code>      Since: <code>Sep 2019</code>      Licence: <code>MIT</code></p>
 </div>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#Features">3. Features</a>
+<li><a href="#getting-started">2. Getting Started</a></li>
+<li><a href="#features">3. Features</a>
 <ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-<li><a href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></li>
-<li><a href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></li>
-<li><a href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.7. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.8. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.9. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.10. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#auto-saved-data">3.1. Auto-saved data</a></li>
 </ul>
 </li>
-<li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a></li>
+<li><a href="#Commands">4. Commands</a>
+<ul class="sectlevel2">
+<li><a href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></li>
+<li><a href="#show-main-screen-code-main-code">4.2. Show main screen : <code>main</code></a></li>
+<li><a href="#create-new-contact-code-contact-code">4.3. Create new contact: <code>contact</code></a></li>
+<li><a href="#create-new-activity-code-activity-code">4.4. Create new activity: <code>activity</code></a></li>
+<li><a href="#add-contacts-to-an-activity-code-invite-code">4.5. Add contacts to an activity: <code>invite</code></a></li>
+<li><a href="#remove-contacts-from-an-activity-code-disinvite-code">4.6. Remove contacts from an activity: <code>disinvite</code></a></li>
+<li><a href="#add-expenses-to-an-activity-code-expense-code">4.7. Add expenses to an activity : <code>expense</code></a></li>
+<li><a href="#list-all-contacts-or-activities-code-list-code">4.8. List all contacts or activities : <code>list</code></a></li>
+<li><a href="#view-a-contact-or-activity-code-view-code">4.9. View a contact or activity : <code>view</code></a></li>
+<li><a href="#edit-an-existing-contact-or-activity-code-edit-code">4.10. Edit an existing contact or activity : <code>edit</code></a></li>
+<li><a href="#finding-contacts-or-activities-code-find-code">4.11. Finding contacts or activities: <code>find</code></a></li>
+<li><a href="#deleting-a-contact-activity-or-expense-code-delete-code">4.12. Deleting a contact, activity or expense : <code>delete</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.13. Exiting the program : <code>exit</code></a></li>
+</ul>
+</li>
+<li><a href="#faq">5. FAQ</a></li>
 </ul>
 </div>
 </div>
@@ -34,23 +41,23 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook Level 3 (AB3) is for those who <strong>prefer to use a desktop app for managing contacts</strong>. More importantly, AB3 is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+<p>Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with <strong>SplitWiser</strong> is here! <strong>SplitWiser</strong> is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<h2 id="getting-started"><a class="link" href="#getting-started">2. Getting Started</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure you have Java <code>11</code> or above installed in your Computer.</p>
+<p>Ensure you have <a href="https://java.com/en/download/">Java <code>11</code></a> or above installed in your Computer.</p>
 </li>
 <li>
-<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/se-edu/addressbook-level3/releases">here</a>.</p>
+<p>Download the latest <code>SplitWiser.jar</code> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/releases">here</a>.</p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+<p>Copy the file to the folder you want to use as the home folder for SplitWiser.</p>
 </li>
 <li>
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
@@ -72,7 +79,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p><strong><code>list</code></strong> : lists all contacts</p>
 </li>
 <li>
-<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Address Book.</p>
+<p><strong><code>contact</code></strong><code>n/John Doe hp/98765432</code> : adds a contact named <code>John Doe</code> to SplitWiser.</p>
 </li>
 <li>
 <p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
@@ -84,14 +91,26 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </li>
 <li>
-<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+<p>Refer to <a href="#Commands">Section 4, &#8220;Commands&#8221;</a> for details of each command.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<h2 id="features"><a class="link" href="#features">3. Features</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="auto-saved-data"><a class="link" href="#auto-saved-data">3.1. Auto-saved data</a></h3>
+<div class="paragraph">
+<p>SplitWiser data is saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually - you don&#8217;t have to worry about forgetting to save!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Commands"><a class="link" href="#Commands">4. Commands</a></h2>
 <div class="sectionbody">
 <div class="exampleblock">
 <div class="content">
@@ -101,44 +120,46 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>contact n/CONTACT_NAME</code>, <code>CONTACT_NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
+<p>Items in square brackets are optional e.g <code>n/ACTIVITY_NAME [p/PERSON_1]</code> can be used as <code>n/Drinks p/John Doe</code> or as <code>n/Drinks</code>.</p>
 </li>
 <li>
 <p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
 </li>
 <li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+<p>(UNCONFIRMED, expense adding requires pairs of {p/ e/}) Parameters can be in any order e.g. if the command specifies <code>n/NAME hp/PHONE_NUMBER</code>, <code>hp/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></h3>
+<div class="paragraph">
+<p>Brings up the help dialog.<br></p>
+</div>
 <div class="paragraph">
 <p>Format: <code>help</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></h3>
+<h3 id="show-main-screen-code-main-code"><a class="link" href="#show-main-screen-code-main-code">4.2. Show main screen : <code>main</code></a></h3>
 <div class="paragraph">
-<p>Adds a person to the address book<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+<p>Brings up the main screen which shows the aggregated amounts of debt.<br></p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-A person can have any number of tags (including 0)
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Format: <code>main</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-new-contact-code-contact-code"><a class="link" href="#create-new-contact-code-contact-code">4.3. Create new contact: <code>contact</code></a></h3>
+<div class="paragraph">
+<p>Creates a new contact with a name and phone number<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>contact n/CONTACT_NAME hp/PHONE_NUMBER</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -146,34 +167,153 @@ A person can have any number of tags (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-<li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
+<p><code>add n/John Doe hp/98765432</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></h3>
+<h3 id="create-new-activity-code-activity-code"><a class="link" href="#create-new-activity-code-activity-code">4.4. Create new activity: <code>activity</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all persons in the address book.<br>
-Format: <code>list</code></p>
+<p>Creates a new activity with a name, contacts (optional) and no expenses.<br></p>
+</div>
+<div class="paragraph">
+<p>The user creating that activity will be included automatically, and additional contacts can be specified - any contact not in the contact list will prompt the user for creation. Changes the current view to this activity (as if <code>view a/ACTIVITY_ID</code> was called).<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>activity n/ACTIVITY_NAME [p/PERSON &#8230;&#8203;]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activity n/Chalet p/John Doe</code></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></h3>
+<h3 id="add-contacts-to-an-activity-code-invite-code"><a class="link" href="#add-contacts-to-an-activity-code-invite-code">4.5. Add contacts to an activity: <code>invite</code></a></h3>
 <div class="paragraph">
-<p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+<p>Adds a contact to an activity. Multiple contacts can be added at once.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>invite p/PERSON &#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>invite p/John Doe p/Mary</code> adds John Doe and Mary to the current activity</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="remove-contacts-from-an-activity-code-disinvite-code"><a class="link" href="#remove-contacts-from-an-activity-code-disinvite-code">4.6. Remove contacts from an activity: <code>disinvite</code></a></h3>
+<div class="paragraph">
+<p>Removes a contact from an activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be deleted.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>disinvite p/PERSON &#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>disinvite p/John Doe p/Mary</code> removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-expenses-to-an-activity-code-expense-code"><a class="link" href="#add-expenses-to-an-activity-code-expense-code">4.7. Add expenses to an activity : <code>expense</code></a></h3>
+<div class="paragraph">
+<p>Creates a new expense with a contact, amount and optional description, and adds it into the currently viewed activity. If no activity is being viewed, the description is compulsory and it will instead create a new activity with the same title as the description (as if <code>activity n/ACTIVITY_NAME</code> was called). The expense and contact will then be added into the activity.<br></p>
+</div>
+<div class="paragraph">
+<p>Multiple expenses can be added at once.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>expense p/PERSON e/AMOUNT_PAID &#8230;&#8203; [d/DESCRIPTION]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the person at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed person list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>At least one expense must be provided.</p>
 </li>
+<li>
+<p>Expenses must be entered in pairs of <code>p/PERSON</code> followed by <code>e/AMOUNT_PAID</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>expense p/John Doe e/100</code> adds an expense of $100 by John Doe into the currently viewed activity. If John Doe is not in the current activity, no expense will be created.</p>
+</li>
+<li>
+<p><code>expense p/Mary e/100 p/Joseph e/40 d/Drinks</code> Adds 2 expenses ($100 by Mary and $40 by Joseph), both named <code>Drinks</code>. If no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-all-contacts-or-activities-code-list-code"><a class="link" href="#list-all-contacts-or-activities-code-list-code">4.8. List all contacts or activities : <code>list</code></a></h3>
+<div class="paragraph">
+<p>Switches the current view to list all contacts or activities.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>list c/</code> for contacts OR <code>list a/</code> for activities</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-a-contact-or-activity-code-view-code"><a class="link" href="#view-a-contact-or-activity-code-view-code">4.9. View a contact or activity : <code>view</code></a></h3>
+<div class="paragraph">
+<p>Switches the current view to a contact or activity based on their ID.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>view a/ACTIVITY_ID</code> OR <code>view c/CONTACT_ID</code><br></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>view a/1</code> views the activity with ID 1, e.g. Chalet</p>
+</li>
+<li>
+<p><code>view c/2</code> views the contact with ID 2, e.g. John Smith</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-an-existing-contact-or-activity-code-edit-code"><a class="link" href="#edit-an-existing-contact-or-activity-code-edit-code">4.10. Edit an existing contact or activity : <code>edit</code></a></h3>
+<div class="paragraph">
+<p>Edits some details of the current contact or activity in view.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit [n/NAME] [hp/PHONE] &#8230;&#8203;</code> for contacts OR <code>edit [n/ACTIVITY_NAME] &#8230;&#8203;</code> for activities.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
 <li>
 <p>At least one of the optional fields must be provided.</p>
 </li>
@@ -181,10 +321,7 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
-<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
-</li>
-<li>
-<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+<p>Expenses cannot be edited.</p>
 </li>
 </ul>
 </div>
@@ -196,20 +333,20 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <div class="ulist">
 <ul>
 <li>
-<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+<p><code>edit hp/999</code><br>
+Edits the phone number of the current contact in view to <code>999</code>.</p>
 </li>
 <li>
-<p><code>edit 2 n/Betsy Crower t/</code><br>
-Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
+<p><code>edit n/BBQ</code><br>
+Edits the name of the current activity in view to <code>BBQ</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></h3>
+<h3 id="finding-contacts-or-activities-code-find-code"><a class="link" href="#finding-contacts-or-activities-code-find-code">4.11. Finding contacts or activities: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds persons whose names contain any of the given keywords.<br>
+<p>Finds contacts or activities whose names contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
@@ -229,7 +366,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
 </li>
 <li>
-<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+<p>Contacts and activities matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
 </li>
 </ul>
 </div>
@@ -242,33 +379,43 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <ul>
 <li>
 <p><code>find John</code><br>
-Returns <code>john</code> and <code>John Doe</code></p>
+Returns contacts (e.g. <code>john</code> and <code>John Doe</code>) and activities (e.g. <code>John birthday party</code>)</p>
 </li>
 <li>
 <p><code>find Betsy Tim John</code><br>
-Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+Returns any contact or activity having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></h3>
+<h3 id="deleting-a-contact-activity-or-expense-code-delete-code"><a class="link" href="#deleting-a-contact-activity-or-expense-code-delete-code">4.12. Deleting a contact, activity or expense : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified person from the address book.<br>
-Format: <code>delete INDEX</code></p>
+<p>Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.<br>
+If viewing a contact instead, the contact will be deleted.<br>
+If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted.<br></p>
+</div>
+<div class="paragraph">
+<p>Multiple entries can be deleted.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete [INDEX] &#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the person at the specified <code>INDEX</code>.</p>
+<p>Deletes the entry at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed person list.</p>
+<p>The index refers to the index number shown in the displayed contact or activity or expense list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>*Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view, and moved to the bottom of the list.</p>
 </li>
 </ul>
 </div>
@@ -280,87 +427,32 @@ Format: <code>delete INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>list</code><br>
-<code>delete 2</code><br>
+<p><code>delete 2</code><br>
 Deletes the 2nd person in the address book.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
 <code>delete 1</code><br>
-Deletes the 1st person in the results of the <code>find</code> command.</p>
+Deletes the 1st entry in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.7. Clearing all entries : <code>clear</code></a></h3>
-<div class="paragraph">
-<p>Clears all entries from the address book.<br>
-Format: <code>clear</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.8. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.13. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.9. Saving the data</a></h3>
-<div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.10. Encrypting data files <code>[coming in v2.0]</code></a></h3>
-<div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.</p>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SplitWiser folder.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
-</li>
-<li>
-<p><strong>Clear</strong> : <code>clear</code></p>
-</li>
-<li>
-<p><strong>Delete</strong> : <code>delete INDEX</code><br>
-e.g. <code>delete 3</code></p>
-</li>
-<li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
-</li>
-<li>
-<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-e.g. <code>find James Jake</code></p>
-</li>
-<li>
-<p><strong>List</strong> : <code>list</code></p>
-</li>
-<li>
-<p><strong>Help</strong> : <code>help</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-09-26 11:03:30 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-09-29 15:28:50 UTC</div></div></div></body></html>
