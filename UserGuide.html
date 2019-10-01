@@ -14,23 +14,26 @@
 <li><a href="#features">3. Features</a>
 <ul class="sectlevel2">
 <li><a href="#auto-saved-data">3.1. Auto-saved data</a></li>
+<li><a href="#persistent-app-state">3.2. Persistent app state</a></li>
 </ul>
 </li>
 <li><a href="#Commands">4. Commands</a>
 <ul class="sectlevel2">
 <li><a href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></li>
 <li><a href="#show-main-screen-code-main-code">4.2. Show main screen : <code>main</code></a></li>
-<li><a href="#create-new-contact-code-contact-code">4.3. Create new contact: <code>contact</code></a></li>
-<li><a href="#create-new-activity-code-activity-code">4.4. Create new activity: <code>activity</code></a></li>
-<li><a href="#add-contacts-to-an-activity-code-invite-code">4.5. Add contacts to an activity: <code>invite</code></a></li>
-<li><a href="#remove-contacts-from-an-activity-code-disinvite-code">4.6. Remove contacts from an activity: <code>disinvite</code></a></li>
-<li><a href="#add-expenses-to-an-activity-code-expense-code">4.7. Add expenses to an activity : <code>expense</code></a></li>
-<li><a href="#list-all-contacts-or-activities-code-list-code">4.8. List all contacts or activities : <code>list</code></a></li>
-<li><a href="#view-a-contact-or-activity-code-view-code">4.9. View a contact or activity : <code>view</code></a></li>
+<li><a href="#list-all-contacts-or-activities-code-list-code">4.3. List all contacts or activities : <code>list</code></a></li>
+<li><a href="#view-a-contact-or-activity-code-view-code">4.4. View a contact or activity : <code>view</code></a></li>
+<li><a href="#create-new-contact-code-contact-code">4.5. Create new contact: <code>contact</code></a></li>
+<li><a href="#create-new-activity-code-activity-code">4.6. Create new activity: <code>activity</code></a></li>
+<li><a href="#add-contacts-to-an-activity-code-invite-code">4.7. Add contacts to an activity: <code>invite</code></a></li>
+<li><a href="#remove-contacts-from-an-activity-code-disinvite-code">4.8. Remove contacts from an activity: <code>disinvite</code></a></li>
+<li><a href="#add-expenses-to-an-activity-code-expense-code">4.9. Add expenses to an activity : <code>expense</code></a></li>
 <li><a href="#edit-an-existing-contact-or-activity-code-edit-code">4.10. Edit an existing contact or activity : <code>edit</code></a></li>
 <li><a href="#finding-contacts-or-activities-code-find-code">4.11. Finding contacts or activities: <code>find</code></a></li>
 <li><a href="#deleting-a-contact-activity-or-expense-code-delete-code">4.12. Deleting a contact, activity or expense : <code>delete</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.13. Exiting the program : <code>exit</code></a></li>
+<li><a href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.13. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></li>
+<li><a href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.14. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.15. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -51,7 +54,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure you have <a href="https://java.com/en/download/">Java <code>11</code></a> or above installed in your Computer.</p>
+<p>Ensure you have <a href="https://java.com/en/download/">Java 11</a> or above installed in your Computer.</p>
 </li>
 <li>
 <p>Download the latest <code>SplitWiser.jar</code> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/releases">here</a>.</p>
@@ -63,7 +66,7 @@
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/Ui.png" alt="Ui" width="790">
+<img src="images/minified-mockups/main.png" alt="main" width="251">
 </div>
 </div>
 </li>
@@ -76,16 +79,16 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : lists all contacts</p>
+<p><strong><code>list c/</code></strong> : displays list of all contacts</p>
 </li>
 <li>
-<p><strong><code>contact</code></strong><code>n/John Doe hp/98765432</code> : adds a contact named <code>John Doe</code> to SplitWiser.</p>
+<p><strong><code>contact</code></strong><code>n/John Doe hp/98765432</code> : adds a new contact named <code>John Doe</code> with mobile number <code>98765432</code> to SplitWiser.</p>
 </li>
 <li>
 <p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
 </li>
 <li>
-<p><strong><code>exit</code></strong> : exits the app</p>
+<p><strong><code>exit</code></strong> : exits and closes the app</p>
 </li>
 </ul>
 </div>
@@ -107,6 +110,12 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 There is no need to save manually - you don&#8217;t have to worry about forgetting to save!</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="persistent-app-state"><a class="link" href="#persistent-app-state">3.2. Persistent app state</a></h3>
+<div class="paragraph">
+<p>SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -123,13 +132,16 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>contact n/CONTACT_NAME</code>, <code>CONTACT_NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>n/ACTIVITY_NAME [p/PERSON_1]</code> can be used as <code>n/Drinks p/John Doe</code> or as <code>n/Drinks</code>.</p>
+<p>Parameters in square brackets are optional e.g <code>n/ACTIVITY_NAME [p/PERSON_1]</code> can be used as <code>n/Drinks p/John Doe</code> or as <code>n/Drinks</code>.</p>
 </li>
 <li>
-<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+<p>Parameters with <code>…</code>​ may be supplied multiple times, including 0 times for optional parameters, e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
 </li>
 <li>
-<p>(UNCONFIRMED, expense adding requires pairs of {p/ e/}) Parameters can be in any order e.g. if the command specifies <code>n/NAME hp/PHONE_NUMBER</code>, <code>hp/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+<p>Parameters in brackets must be supplied together - e.g. addition of expenses to an activity requires contact-expense pairs <code>(n/CONTACT_NAME &amp;&amp; e/EXPENSE_AMT)</code>, which may be used as <code>p/John Doe e/50.25</code></p>
+</li>
+<li>
+<p>Parameters may be supplied in any order e.g. if the command specifies <code>n/NAME hp/PHONE_NUMBER</code>, <code>hp/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
@@ -154,9 +166,53 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-new-contact-code-contact-code"><a class="link" href="#create-new-contact-code-contact-code">4.3. Create new contact: <code>contact</code></a></h3>
+<h3 id="list-all-contacts-or-activities-code-list-code"><a class="link" href="#list-all-contacts-or-activities-code-list-code">4.3. List all contacts or activities : <code>list</code></a></h3>
 <div class="paragraph">
-<p>Creates a new contact with a name and phone number<br></p>
+<p>Switches the current view to list all contacts or activities.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>list c/</code> for contacts <strong>OR</strong> <code>list a/</code> for activities</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-a-contact-or-activity-code-view-code"><a class="link" href="#view-a-contact-or-activity-code-view-code">4.4. View a contact or activity : <code>view</code></a></h3>
+<div class="paragraph">
+<p>Switches the current view to show details of a contact or activity based on their ID.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>view a/ACTIVITY_ID</code> <strong>OR</strong> <code>view c/CONTACT_ID</code><br></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>view a/1</code><br>
+Views the activity with ID 1, e.g. Chalet</p>
+</li>
+<li>
+<p><code>view c/2</code><br>
+views the contact with ID 2, e.g. John Smith</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-new-contact-code-contact-code"><a class="link" href="#create-new-contact-code-contact-code">4.5. Create new contact: <code>contact</code></a></h3>
+<div class="paragraph">
+<p>Creates a new contact with a name and phone number. Each contact will be assigned a contact ID automatically.<br></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Each contact must have a unique name.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>contact n/CONTACT_NAME hp/PHONE_NUMBER</code></p>
@@ -167,21 +223,25 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe hp/98765432</code></p>
+<p><code>contact n/John Doe hp/98765432</code><br>
+Creates a new contact with name John Doe and mobile number 98765432.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-new-activity-code-activity-code"><a class="link" href="#create-new-activity-code-activity-code">4.4. Create new activity: <code>activity</code></a></h3>
+<h3 id="create-new-activity-code-activity-code"><a class="link" href="#create-new-activity-code-activity-code">4.6. Create new activity: <code>activity</code></a></h3>
 <div class="paragraph">
-<p>Creates a new activity with a name, contacts (optional) and no expenses.<br></p>
+<p>Creates a new activity with a title, contacts (optional) and no expenses.</p>
 </div>
 <div class="paragraph">
-<p>The user creating that activity will be included automatically, and additional contacts can be specified - any contact not in the contact list will prompt the user for creation. Changes the current view to this activity (as if <code>view a/ACTIVITY_ID</code> was called).<br></p>
+<p>The user creating the activity will be included automatically, and additional contacts can be specified - any contacts not found in the list of contacts will prompt the user to create them. Changes the current view to this activity (as if <code>view a/ACTIVITY_ID</code> was called).</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>activity n/ACTIVITY_NAME [p/PERSON &#8230;&#8203;]</code></p>
+<p>Each activity will be assigned an activity ID automatically.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>activity t/ACTIVITY_TITLE [p/PERSON &#8230;&#8203;]</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -189,15 +249,16 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <div class="ulist">
 <ul>
 <li>
-<p><code>activity n/Chalet p/John Doe</code></p>
+<p><code>activity n/Chalet p/John Doe</code><br>
+Creates a new activity with title 'Chalet' and the user and John Doe as participants.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-contacts-to-an-activity-code-invite-code"><a class="link" href="#add-contacts-to-an-activity-code-invite-code">4.5. Add contacts to an activity: <code>invite</code></a></h3>
+<h3 id="add-contacts-to-an-activity-code-invite-code"><a class="link" href="#add-contacts-to-an-activity-code-invite-code">4.7. Add contacts to an activity: <code>invite</code></a></h3>
 <div class="paragraph">
-<p>Adds a contact to an activity. Multiple contacts can be added at once.</p>
+<p>Adds a contact to the currently viewed activity. Multiple contacts can be added at once.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>invite p/PERSON &#8230;&#8203;</code></p>
@@ -208,15 +269,16 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <div class="ulist">
 <ul>
 <li>
-<p><code>invite p/John Doe p/Mary</code> adds John Doe and Mary to the current activity</p>
+<p><code>invite p/John Doe p/Mary</code><br>
+Adds both John Doe and Mary to the current activity.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="remove-contacts-from-an-activity-code-disinvite-code"><a class="link" href="#remove-contacts-from-an-activity-code-disinvite-code">4.6. Remove contacts from an activity: <code>disinvite</code></a></h3>
+<h3 id="remove-contacts-from-an-activity-code-disinvite-code"><a class="link" href="#remove-contacts-from-an-activity-code-disinvite-code">4.8. Remove contacts from an activity: <code>disinvite</code></a></h3>
 <div class="paragraph">
-<p>Removes a contact from an activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be deleted.</p>
+<p>Removes a contact from the currently viewed activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be removed.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>disinvite p/PERSON &#8230;&#8203;</code></p>
@@ -227,21 +289,25 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <div class="ulist">
 <ul>
 <li>
-<p><code>disinvite p/John Doe p/Mary</code> removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.</p>
+<p><code>disinvite p/John Doe p/Mary</code><br>
+Removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-expenses-to-an-activity-code-expense-code"><a class="link" href="#add-expenses-to-an-activity-code-expense-code">4.7. Add expenses to an activity : <code>expense</code></a></h3>
+<h3 id="add-expenses-to-an-activity-code-expense-code"><a class="link" href="#add-expenses-to-an-activity-code-expense-code">4.9. Add expenses to an activity : <code>expense</code></a></h3>
 <div class="paragraph">
-<p>Creates a new expense with a contact, amount and optional description, and adds it into the currently viewed activity. If no activity is being viewed, the description is compulsory and it will instead create a new activity with the same title as the description (as if <code>activity n/ACTIVITY_NAME</code> was called). The expense and contact will then be added into the activity.<br></p>
+<p>Creates a new expense with a contact, amount and optional description, and adds it to the currently viewed activity.</p>
 </div>
 <div class="paragraph">
-<p>Multiple expenses can be added at once.</p>
+<p>If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if <code>activity n/ACTIVITY_NAME</code> was called). The expense and contact will then be added to the activity.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>expense p/PERSON e/AMOUNT_PAID &#8230;&#8203; [d/DESCRIPTION]</code></p>
+<p>Multiple expenses can be added at once. If a description is provided, all created expenses will share the same description.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>expense (p/PERSON e/AMOUNT_PAID) &#8230;&#8203; [d/DESCRIPTION]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -263,41 +329,12 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <div class="ulist">
 <ul>
 <li>
-<p><code>expense p/John Doe e/100</code> adds an expense of $100 by John Doe into the currently viewed activity. If John Doe is not in the current activity, no expense will be created.</p>
+<p><code>expense p/John Doe e/100</code><br>
+Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, no expense will be created.</p>
 </li>
 <li>
-<p><code>expense p/Mary e/100 p/Joseph e/40 d/Drinks</code> Adds 2 expenses ($100 by Mary and $40 by Joseph), both named <code>Drinks</code>. If no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="list-all-contacts-or-activities-code-list-code"><a class="link" href="#list-all-contacts-or-activities-code-list-code">4.8. List all contacts or activities : <code>list</code></a></h3>
-<div class="paragraph">
-<p>Switches the current view to list all contacts or activities.<br></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>list c/</code> for contacts OR <code>list a/</code> for activities</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="view-a-contact-or-activity-code-view-code"><a class="link" href="#view-a-contact-or-activity-code-view-code">4.9. View a contact or activity : <code>view</code></a></h3>
-<div class="paragraph">
-<p>Switches the current view to a contact or activity based on their ID.<br></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>view a/ACTIVITY_ID</code> OR <code>view c/CONTACT_ID</code><br></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>view a/1</code> views the activity with ID 1, e.g. Chalet</p>
-</li>
-<li>
-<p><code>view c/2</code> views the contact with ID 2, e.g. John Smith</p>
+<p><code>expense p/Mary e/100 p/Joseph e/40 d/Drinks</code><br>
+Adds 2 expenses ($100 by Mary and $40 by Joseph), both named <code>Drinks</code>. If no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.</p>
 </li>
 </ul>
 </div>
@@ -308,7 +345,7 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <p>Edits some details of the current contact or activity in view.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>edit [n/NAME] [hp/PHONE] &#8230;&#8203;</code> for contacts OR <code>edit [n/ACTIVITY_NAME] &#8230;&#8203;</code> for activities.</p>
+<p>Format: <code>edit [n/NAME] [hp/PHONE] &#8230;&#8203;</code> for contacts OR <code>edit [t/ACTIVITY_TITLE] &#8230;&#8203;</code> for activities.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -334,11 +371,11 @@ There is no need to save manually - you don&#8217;t have to worry about forgetti
 <ul>
 <li>
 <p><code>edit hp/999</code><br>
-Edits the phone number of the current contact in view to <code>999</code>.</p>
+Edits the phone number of the current contact in view to <code>999</code>. No changes are made if a contact is not being viewed.</p>
 </li>
 <li>
-<p><code>edit n/BBQ</code><br>
-Edits the name of the current activity in view to <code>BBQ</code>.</p>
+<p><code>edit t/BBQ</code><br>
+Edits the title of the current activity in view to <code>BBQ</code>. No changes are made if an activity is not being viewed.</p>
 </li>
 </ul>
 </div>
@@ -346,8 +383,10 @@ Edits the name of the current activity in view to <code>BBQ</code>.</p>
 <div class="sect2">
 <h3 id="finding-contacts-or-activities-code-find-code"><a class="link" href="#finding-contacts-or-activities-code-find-code">4.11. Finding contacts or activities: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds contacts or activities whose names contain any of the given keywords.<br>
-Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+<p>Finds contacts or activities whose name or title respectively contain <strong>any</strong> of the given keywords.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find KEYWORD &#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -360,7 +399,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
 </li>
 <li>
-<p>Only the name is searched.</p>
+<p>Only the name of contacts and title of activities are searched.</p>
 </li>
 <li>
 <p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
@@ -379,11 +418,11 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <ul>
 <li>
 <p><code>find John</code><br>
-Returns contacts (e.g. <code>john</code> and <code>John Doe</code>) and activities (e.g. <code>John birthday party</code>)</p>
+Returns contacts (e.g. <code>john</code> and <code>John Doe</code>) and activities (e.g. <code>John birthday party</code>).</p>
 </li>
 <li>
 <p><code>find Betsy Tim John</code><br>
-Returns any contact or activity having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+Returns any contact or activity whose name or title contains the word <code>Betsy</code>, <code>Tim</code>, or <code>John</code>.</p>
 </li>
 </ul>
 </div>
@@ -391,12 +430,16 @@ Returns any contact or activity having names <code>Betsy</code>, <code>Tim</code
 <div class="sect2">
 <h3 id="deleting-a-contact-activity-or-expense-code-delete-code"><a class="link" href="#deleting-a-contact-activity-or-expense-code-delete-code">4.12. Deleting a contact, activity or expense : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.<br>
-If viewing a contact instead, the contact will be deleted.<br>
-If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted.<br></p>
+<p>Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.</p>
 </div>
 <div class="paragraph">
-<p>Multiple entries can be deleted.</p>
+<p>If viewing a contact instead, the contact will be deleted.</p>
+</div>
+<div class="paragraph">
+<p>If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted.<br></p>
+</div>
+<div class="paragraph">
+<p>Multiple entries can be deleted at once.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>delete [INDEX] &#8230;&#8203;</code></p>
@@ -428,18 +471,67 @@ If viewing an activity instead, it will delete an expense* by index. Not specify
 <ul>
 <li>
 <p><code>delete 2</code><br>
-Deletes the 2nd person in the address book.</p>
+If viewing the list of contacts, deletes the 2nd person by index.<br>
+If viewing a contact, deletes the contact.<br>
+If viewing the list of activities, deletes the 2nd activity by index.<br>
+If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
 <code>delete 1</code><br>
-Deletes the 1st entry in the results of the <code>find</code> command.</p>
+Deletes the 1st entry (either a contact or activity) in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.13. Exiting the program : <code>exit</code></a></h3>
+<h3 id="assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong"><a class="link" href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.13. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></h3>
+<div class="paragraph">
+<p>Assigns an activity as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or an invalid activity ID is provided, no change is made.</p>
+</div>
+<div class="paragraph">
+<p>Multiple activities can be assigned at once.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>assign a/ACTIVITY_ID &#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>assign 3 5</code>
+If viewing an activity with title 'Family trip', assigns the activities with IDs 3 and 5 as sub-activities of 'Family trip'. Otherwise does nothing.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong"><a class="link" href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.14. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></h3>
+<div class="paragraph">
+<p>Marks an activity as resolved, clearing (removing) the debts within from each contact and the aggregated debt on the main screen.</p>
+</div>
+<div class="paragraph">
+<p>Multiple activities can be resolved at once.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>close a/ACTIVITY_ID &#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>close 3 4</code><br>
+Marks the activities with activity ID 3 and 4 as resolved, updating the aggregated debt of their participants.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.15. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
@@ -451,8 +543,8 @@ Format: <code>exit</code></p>
 <h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SplitWiser folder.</p>
+<p><strong>Q</strong>: How do I transfer my data to another computer?<br>
+<strong>A</strong>: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.</p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-01 12:25:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-01 15:12:32 UTC</div></div></div></body></html>
