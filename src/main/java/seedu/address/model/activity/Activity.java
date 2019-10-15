@@ -8,7 +8,7 @@ import java.util.Objects;
 import seedu.address.model.person.Person;
 
 /**
- * Represents an Activity class containing participants ID and expenses.
+ * Represents an Activity class containing participants ID and expenses.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
  */
 public class Activity {
 
