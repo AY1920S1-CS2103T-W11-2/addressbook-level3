@@ -35,7 +35,7 @@ public class ActivityTest {
         assertFalse(lunch.equals(editedLunch));
 
         // different participants -> returns false
-        editedLunch = new ActivityBuilder(lunch).addPerson(TypicalPersons.ALICE).build();
+        editedLunch = new ActivityBuilder(lunch).build();
         assertFalse(lunch.equals(editedLunch));
 
         //TODO: Different expenses -> returns false;
