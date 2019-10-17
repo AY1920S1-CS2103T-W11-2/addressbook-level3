@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -94,7 +95,7 @@ public class ActivityCommandTest {
         ActivityCommand validActivityTwoParticipants = new ActivityCommand(breakfastTitle, aliceBob);
 
         // same object -> returns true
-        assertTrue(validActivityNoParticipant.equals(validActivityNoParticipant));
+        assertEquals(validActivityNoParticipant, validActivityNoParticipant);
 
         // same values (with participants) -> returns true
         ActivityCommand validActivityCopy = new ActivityCommand(breakfastTitle, aliceBob);
@@ -104,7 +105,7 @@ public class ActivityCommandTest {
         assertFalse(validActivityNoParticipant.equals(1));
 
         // null -> returns false
-        assertFalse(validActivityNoParticipant.equals(null));
+        assertNotNull(validActivityNoParticipant);
 
         // different title -> returns false
         assertFalse(validActivityNoParticipantTwo.equals(validActivityNoParticipant));

@@ -100,11 +100,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nActivity data file location: " + activityBookFilePath);
-        sb.append("\nAddress data file location : " + addressBookFilePath);
-        sb.append("\nState data file location : " + internalStateFilePath);
+        sb.append("Gui Settings : ")
+                .append(guiSettings)
+                .append("\nLocal data file location : ")
+                .append(addressBookFilePath)
+                .append("\nActivity data file location: ")
+                .append(activityBookFilePath)
+                .append("\nAddress data file location : ")
+                .append(addressBookFilePath)
+                .append("\nState data file location : ")
+                .append(internalStateFilePath);
+
         return sb.toString();
     }
 

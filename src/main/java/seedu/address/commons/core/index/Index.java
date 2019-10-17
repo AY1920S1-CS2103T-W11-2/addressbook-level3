@@ -8,7 +8,7 @@ package seedu.address.commons.core.index;
  * base the other component is using for its index. However, after receiving the {@code Index}, that component can
  * convert it back to an int if the index will not be passed to a different component again.
  */
-public class Index {
+public final class Index {
     private int zeroBasedIndex;
 
     /**
@@ -48,7 +48,7 @@ public class Index {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Index // instanceof handles nulls
-                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+                || other instanceof Index // instanceof handles nulls
+                && zeroBasedIndex == ((Index) other).zeroBasedIndex; // state check
     }
 }

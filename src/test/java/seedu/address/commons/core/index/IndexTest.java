@@ -38,7 +38,7 @@ public class IndexTest {
     }
 
     @Test
-    public void equals() {
+    public void equality() {
         final Index fifthPersonIndex = Index.fromOneBased(5);
 
         // same values -> returns true
@@ -46,7 +46,7 @@ public class IndexTest {
         assertTrue(fifthPersonIndex.equals(Index.fromZeroBased(4)));
 
         // same object -> returns true
-        assertTrue(fifthPersonIndex.equals(fifthPersonIndex));
+        assertEquals(fifthPersonIndex, fifthPersonIndex);
 
         // null -> returns false
         assertFalse(fifthPersonIndex.equals(null));

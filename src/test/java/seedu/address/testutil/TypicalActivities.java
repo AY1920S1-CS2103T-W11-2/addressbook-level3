@@ -10,7 +10,7 @@ import seedu.address.model.activity.Activity;
 /**
  * A utility class containing a list of {@code Activity} objects to be used in tests.
  */
-public class TypicalActivities {
+public final class TypicalActivities {
 
     public static final Activity BREAKFAST = new ActivityBuilder()
             .withTitle("Breakfast")

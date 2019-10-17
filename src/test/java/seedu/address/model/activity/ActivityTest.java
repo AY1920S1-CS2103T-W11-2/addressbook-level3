@@ -12,7 +12,7 @@ import seedu.address.testutil.TypicalPersons;
 public class ActivityTest {
 
     @Test
-    public void equals() {
+    public void equality() {
         // same values -> returns true
         Activity lunch = TypicalActivities.LUNCH;
         Activity lunchCopy = new ActivityBuilder(lunch).build();

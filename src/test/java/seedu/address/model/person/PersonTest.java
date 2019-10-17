@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -74,7 +75,7 @@ public class PersonTest {
         assertTrue(ALICE.equals(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertNotNull(ALICE);
 
         // different type -> returns false
         assertFalse(ALICE.equals(5));
