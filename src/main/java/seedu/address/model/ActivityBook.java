@@ -116,8 +116,6 @@ public class ActivityBook {
 
     @Override
     public boolean equals(Object other) {
-            System.out.println(activityList);
-            System.out.println(((ActivityBook)other).activityList);
         if (other != this) {
             return other instanceof ActivityBook
                     && activityList.equals(((ActivityBook) other).activityList);
