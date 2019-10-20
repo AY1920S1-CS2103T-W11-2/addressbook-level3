@@ -57,6 +57,19 @@ public class ActivityBook {
 
     //// activity-level operations
     /**
+     * Gets an activity with the corresponding primary key.
+     * @param primaryKey The primary key of the activity to retrieve.
+     * @return Activity with the key if it exists, or null if it does not.
+     */
+    public Activity getActivity(int primaryKey) {
+        for (Activity activity : activityList) {
+            if (activity.getPrimaryKey() == primaryKey) {
+                return activity;
+            }
+        }
+        return null;
+    }
+    /**
      * Adds an activity to the activity book.
      */
     public void addActivity(Activity a) {
