@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ID;
 
-import java.lang.NumberFormatException;
 import java.util.List;
 
 import seedu.address.logic.commands.ViewCommand;

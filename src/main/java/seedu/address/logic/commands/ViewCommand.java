@@ -7,10 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ID;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
-import seedu.address.logic.parser.Prefix;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -22,8 +22,8 @@ public class ViewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds either an activity or contact with "
             + "the specified ID number and displays them. ID must be numerical!\n" + "Parameters: {"
-            + PREFIX_ACTIVITY_ID + " | " + PREFIX_CONTACT_ID + "}ID\n" +
-            "Example: " + COMMAND_WORD + "a/2";
+            + PREFIX_ACTIVITY_ID + " | " + PREFIX_CONTACT_ID + "}ID\n"
+            + "Example: " + COMMAND_WORD + "a/2";
 
     private final int id;
     private final Prefix prefix;
