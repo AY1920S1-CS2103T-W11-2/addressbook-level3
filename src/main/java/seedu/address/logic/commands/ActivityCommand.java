@@ -92,6 +92,7 @@ public class ActivityCommand extends Command {
         }
 
         Activity toAdd = new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
+        model.addActivity(toAdd);
         toAdd.updateContextAndView(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage, warningMessage));
     }

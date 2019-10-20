@@ -49,15 +49,13 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
-
+        validActivity.updateContextAndView(expectedModel);
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);
     }
 
     @Test
     public void execute_newActivityWithMultipleMatches_success() {
-        Person person = TypicalPersons.ALICE;
         String stringTitle = "Test Activity";
         Title title = new Title(stringTitle);
         Activity validActivity = new ActivityBuilder().withTitle(stringTitle).build();
@@ -77,14 +75,13 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
+        validActivity.updateContextAndView(expectedModel);
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);
     }
 
     @Test
     public void execute_newActivityWithZeroMatches_success() {
-        Person person = TypicalPersons.ALICE;
         String stringTitle = "Test Activity";
         Title title = new Title(stringTitle);
         Activity validActivity = new ActivityBuilder().withTitle(stringTitle).build();
@@ -104,8 +101,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
-
+        validActivity.updateContextAndView(expectedModel);
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);
     }

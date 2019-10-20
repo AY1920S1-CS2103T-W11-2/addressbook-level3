@@ -37,6 +37,7 @@ public class Activity {
             participantIds.add(id);
         }
     }
+
     /**
      * Constructor for Activity.
      * @param title Title of the activity.
