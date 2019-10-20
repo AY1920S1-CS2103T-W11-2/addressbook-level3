@@ -128,8 +128,7 @@ public class ExpenseCommand extends Command {
             model.addActivity(activity);
         }
 
-        //TODO: Switch to activity view to view the newly created activity if not already in activity view?
-
+        activity.updateContextAndView(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, persons.size(), successMessage.toString()));
     }
 

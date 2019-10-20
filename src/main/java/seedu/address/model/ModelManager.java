@@ -213,10 +213,28 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    /**
+     * Actually filters the whole list and returns a list of the result.
+     * @return An array of {@code Person} which pass the predicate of the filtered list.
+     */
+    public Person[] filteredPersonArr() {
+        ArrayList<Person> res = new ArrayList<>(filteredPersons.size());
+        for (Person p : filteredPersons) {
+            res.add(p);
+        }
+        return res.toArray(new Person[res.size()]);
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate, Model model) {
+        updateFilteredPersonList(predicate);
+        model.setContext(new Context(filteredPersonArr()));
     }
 
     @Override

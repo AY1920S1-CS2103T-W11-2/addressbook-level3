@@ -145,6 +145,13 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate},
+     * and also sets the context to point at the new filtered list.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate, Model model);
+
+    /**
      * Replaces the current model's context with the given {@code context}.
      */
     void setContext(Context context);

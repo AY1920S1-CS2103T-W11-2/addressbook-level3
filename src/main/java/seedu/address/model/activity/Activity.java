@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import seedu.address.model.Context;
+import seedu.address.model.Model;
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 
 /**
@@ -108,6 +110,16 @@ public class Activity {
                 expenses.get(positions[i] - 1).delete();
             } // if beyond range not implemented yet
         }
+    }
+
+    /**
+     * Updates the context to view this activity and also refreshes the model
+     * filtered person list so the UI shows details about this activity.
+     */
+    public void updateContextAndView(Model model) {
+        model.setContext(new Context(this));
+        model.updateFilteredPersonList(x ->
+                this.getParticipantIds().contains(x.getPrimaryKey()));
     }
 
     @Override

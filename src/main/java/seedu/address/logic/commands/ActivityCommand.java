@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Title;
@@ -93,9 +92,7 @@ public class ActivityCommand extends Command {
         }
 
         Activity toAdd = new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
-        model.addActivity(toAdd);
-        model.setContext(new Context(toAdd));
-        model.updateFilteredPersonList(x -> toAdd.getParticipantIds().contains(x.getPrimaryKey()));
+        toAdd.updateContextAndView(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage, warningMessage));
     }
 
