@@ -22,10 +22,11 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#proposed-undo-redo-feature">3.1. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#proposed-invite-disinvite-feature">3.1. [Proposed] Invite/Disinvite feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -330,9 +331,160 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.1. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-invite-disinvite-feature"><a class="link" href="#proposed-invite-disinvite-feature">3.1. [Proposed] Invite/Disinvite feature</a></h3>
 <div class="sect3">
 <h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.1.1. Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
+It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>
+Additionally, it implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Activity#invite()</code>&#8201;&#8212;&#8201;Invites a person to the activity.</p>
+</li>
+<li>
+<p><code>Activity#disinvite()</code>&#8201;&#8212;&#8201;Disinvites a person from the activity.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are exposed in the <code>Activity</code> class as <code>Activity#invite()</code> and <code>Activity#disinvite()</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>activity t/breakfast p/David</code> command to create an activity named breakfast in the activity book.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes <code>invite p/Louis &#8230;&#8203;</code> to invite more people into the current activity. The <code>invite</code> command calls <code>Activity#invite()</code>, inviting more participants into the activity. The activityList will then be modified which is stored in the ActivityBook.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the invite operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/InviteSequenceDiagram.png" alt="InviteSequenceDiagram">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>InviteCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the <code>disinvite</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The user executes <code>disinvite p/Louis p/David &#8230;&#8203;</code> to remove participant(s) from the current activity. The <code>disinvite</code> command calls <code>Activity#disinvite()</code>, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the disinvite operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DisinviteSequenceDiagram.png" alt="DisinviteSequenceDiagram">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>DisinviteCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-invite-disinvite-executes"><a class="link" href="#aspect-how-invite-disinvite-executes">Aspect: How invite &amp; disinvite executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Contextual based invite/disinvite based on current viewed activity.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: User friendlier</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Invite/disinvite based on user specifying the activity number.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-support-the-invite-disinvite-commands"><a class="link" href="#aspect-data-structure-to-support-the-invite-disinvite-commands">Aspect: Data structure to support the invite/disinvite commands</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a list to store the participants ID in the activity instead of participants.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
+</li>
+<li>
+<p>Cons: Have to find particular participant that matches the ID specified.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use list to store participants.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
+</li>
+<li>
+<p>Cons: Harder to implement, might form same person object from the json file if not implemented properly.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -474,7 +626,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -544,20 +696,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -588,7 +740,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1205,4 +1357,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-22 12:34:30 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-22 12:53:20 UTC</div></div></div></body></html>
