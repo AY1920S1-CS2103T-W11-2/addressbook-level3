@@ -22,11 +22,12 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#proposed-invite-disinvite-feature">3.1. [Proposed] Invite/Disinvite feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#list-feature">3.1. List feature</a></li>
+<li><a href="#proposed-invite-disinvite-feature">3.2. [Proposed] Invite/Disinvite feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.3. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -361,13 +362,93 @@ Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;O
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="proposed-invite-disinvite-feature"><a class="link" href="#proposed-invite-disinvite-feature">3.1. [Proposed] Invite/Disinvite feature</a></h3>
+<h3 id="list-feature"><a class="link" href="#list-feature">3.1. List feature</a></h3>
+<div class="paragraph">
+<p>The List mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>Context</code> is an immutable utility class that describes the nature of the current view of the app. It stores state information about the <code>ContextType</code> as well as an optional <code>Object</code> of interest. A <code>Context</code> may be instantiated either by</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>one of the factory methods <code>newListActivityContext</code> or <code>newListContactContext</code></p>
+</li>
+<li>
+<p>invoking the constructor with either an <code>Activity</code> or <code>Contact</code> of interest</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>Context</code> class exposes relevant getter methods <code>Context#getType</code>, <code>Context#getActivity</code> and <code>Context#getContact</code>, and thus supports contextual behaviour of other commands.</p>
+</div>
+<div class="paragraph">
+<p>During execution, the List command creates the intended <code>Context</code> and updates the <code>Model</code> with it, along with the appropriate <code>FilteredList</code>. As <code>MainWindow</code> tracks both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.</p>
+</div>
+<div class="paragraph">
+<p>The updated <code>ContextType</code> of the <code>Model</code> is then returned to the <code>MainWindow</code> UI controller via the <code>CommandResult</code>, where it is used to switch the content displayed.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario of a user intending to view the list of activities.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the <code>SplitWiser</code> application for the first time, which defaults to displaying the list of contacts.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes the command string <code>list a/</code> to prompt the app to display the full list of activities.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram demonstrates the role of the respective components.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ViewSequenceDiagram.png" alt="ViewSequenceDiagram">
+</div>
+</div>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.1.1. Proposed Implementation</a></h4>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.1. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-representing-the-current-context-state"><a class="link" href="#aspect-representing-the-current-context-state">Aspect: representing the current context state</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Creating an immutable <code>Context</code> class as a state container to store the appropriate information.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Lightweight; context state can be easily passed between components that require access, as it is encapsulated entirely within <code>Context</code>.</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Storing the <code>Context</code> state in a designated central component, e.g. the <code>ModelManager</code>, and exposing relevant methods to other components.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Trivial to implement.</p>
+</li>
+<li>
+<p>Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-invite-disinvite-feature"><a class="link" href="#proposed-invite-disinvite-feature">3.2. [Proposed] Invite/Disinvite feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.2.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
-It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>
-Additionally, it implements the following operations:</p>
+It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operations:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -442,7 +523,7 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-invite-disinvite-executes"><a class="link" href="#aspect-how-invite-disinvite-executes">Aspect: How invite &amp; disinvite executes</a></h5>
 <div class="ulist">
@@ -452,7 +533,7 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: User friendlier</p>
+<p>Pros: More user-friendly.</p>
 </li>
 <li>
 <p>Cons: Harder to implement.</p>
@@ -512,9 +593,9 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.3. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.3.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -656,7 +737,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -726,20 +807,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -770,7 +851,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1387,4 +1468,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 03:22:51 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 04:01:35 UTC</div></div></div></body></html>
