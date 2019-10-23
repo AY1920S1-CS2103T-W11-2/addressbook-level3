@@ -266,7 +266,13 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores the Address Book data.</p>
+<p>stores a <code>Context</code> object that represents the current application context.</p>
+</li>
+<li>
+<p>stores a JSON serializable <code>InternalState</code> object in order to keep track of primary key counters for both <code>Person</code> and <code>Activity</code>.</p>
+</li>
+<li>
+<p>stores the Address Book and Activity Book data.</p>
 </li>
 <li>
 <p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
@@ -286,6 +292,30 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book</code>, which <code>Person</code> can reference. This would allow <code>Address Book</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Person</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
 <br>
 <span class="image"><img src="images/BetterModelClassDiagram.png" alt="BetterModelClassDiagram"></span>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>Activity</code> and <code>Expense</code> keeps track of the people involved by storing IDs instead of objects, hence there is no direct dependency on the <code>Person</code> class.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;Object&gt;</code>, which can only be an <code>Activity</code> or <code>Person</code>. Hence, it is not actually possible for <code>Context</code> to contain both and <code>Activity</code> and <code>Person</code>, unlike what Figure 7 might suggest.
 </td>
 </tr>
 </table>
@@ -1357,4 +1387,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-22 15:56:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 03:22:51 UTC</div></div></div></body></html>
