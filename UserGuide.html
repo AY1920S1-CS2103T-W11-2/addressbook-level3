@@ -337,26 +337,23 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 <div class="sect2">
 <h3 id="add-expenses-to-an-activity-code-expense-code"><a class="link" href="#add-expenses-to-an-activity-code-expense-code">4.9. Add expenses to an activity : <code>expense</code></a></h3>
 <div class="paragraph">
-<p>Creates a new expense with a contact, amount and optional description, and adds it to the currently viewed activity.</p>
+<p>Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money.<br></p>
 </div>
 <div class="paragraph">
-<p>If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if <code>activity n/ACTIVITY_NAME</code> was called). The expense and contact will then be added to the activity.<br></p>
+<p>If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money.<br></p>
 </div>
 <div class="paragraph">
-<p>Multiple expenses can be added at once. If a description is provided, all created expenses will share the same description.</p>
+<p>If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if <code>activity t/ACTIVITY_NAME</code> was called). The expense and contact(s) will then be added to the activity.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>expense (p/PERSON e/AMOUNT_PAID) &#8230;&#8203; [d/DESCRIPTION]</code></p>
+<p>Format: <code>expense (p/PERSON e/AMOUNT_PAID) [p/PERSON &#8230;&#8203;] [d/DESCRIPTION]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>At least one expense must be provided.</p>
-</li>
-<li>
-<p>Expenses must be entered in pairs of <code>p/PERSON</code> followed by <code>e/AMOUNT_PAID</code></p>
+<p>Exactly one expense amount must be provided.</p>
 </li>
 </ul>
 </div>
@@ -369,11 +366,13 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 <ul>
 <li>
 <p><code>expense p/John Doe e/100</code><br>
-Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, no expense will be created.</p>
+Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe John a portion of the $100.<br>
+If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense.</p>
 </li>
 <li>
-<p><code>expense p/Mary e/100 p/Joseph e/40 d/Drinks</code><br>
-Adds 2 expenses ($100 by Mary and $40 by Joseph), both named <code>Drinks</code>. If no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.</p>
+<p><code>expense p/Mary e/100 p/Joseph p/Silva d/Drinks</code><br>
+Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named <code>Drinks</code>. If any one of the participants are not in the present activity, then an error will occur and no expense will be created.<br>
+Alternatively, if no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.</p>
 </li>
 </ul>
 </div>
@@ -586,4 +585,4 @@ Format: <code>exit</code></p>
 <strong>A</strong>: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.</p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 00:56:57 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 12:40:18 UTC</div></div></div></body></html>
