@@ -24,12 +24,13 @@
 <ul class="sectlevel2">
 <li><a href="#activity-class">3.1. Activity class</a></li>
 <li><a href="#create-activity-feature">3.2. Create activity feature</a></li>
-<li><a href="#list-feature">3.3. List feature</a></li>
-<li><a href="#proposed-invite-disinvite-feature">3.4. [Proposed] Invite/Disinvite feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
+<li><a href="#debt-simplification-algorithm">3.3. Debt simplification algorithm</a></li>
+<li><a href="#list-feature">3.4. List feature</a></li>
+<li><a href="#proposed-invite-disinvite-feature">3.5. [Proposed] Invite/Disinvite feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -545,7 +546,114 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-feature"><a class="link" href="#list-feature">3.3. List feature</a></h3>
+<h3 id="debt-simplification-algorithm"><a class="link" href="#debt-simplification-algorithm">3.3. Debt simplification algorithm</a></h3>
+<div class="paragraph">
+<p>The algorithm is inspired by <a href="https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf">this paper</a>.</p>
+</div>
+<div class="paragraph">
+<p>We can gurantee the removal of all needless payments.
+The amount of money each person has to hand is minimized.
+We are unable to minimize the number of transactions made.
+The paper gives an overview of that problem and why it is NP-complete (subset-sum).</p>
+</div>
+<div class="sect3">
+<h4 id="operation-details"><a class="link" href="#operation-details">3.3.1. Operation details</a></h4>
+<div class="paragraph">
+<p>The amounts each person owes to another is represented by a graph in an adjacency matrix.
+The algorithm represents the payments to be made as a matrix.
+There are some other data structures to facilitate its operation, but the code is generally well commented and they are not major player so we will skip them.
+Also note that the matrices are necesarrily skew-symmetric: for example if A owes B $10, then B owes A $-10.</p>
+</div>
+<div class="paragraph">
+<p>To rephrase our gurantee in this context will be: we want to minimize weights.
+We do not care about the number of edges.
+Certainly we do not mean each person repeatedly pays out $1, $1, $1!
+Our idea of "minimum weights" refer to the total amount someone has to handle.</p>
+</div>
+<div class="paragraph">
+<p>The lower bound for the amount someone has to handle is the balance.
+We create a balance sheeet for the users which is expanded as people enter the activity.
+Each expense added, the algorithm retrieves from it:
+* who is involved,
+* who paid,
+* how much has been paid,
+splits everything correctly, and updates all the data structures appropriately.</p>
+</div>
+<div class="paragraph">
+<p>Someone&#8217;s balance is positive if he received more than he owes.
+Then, a negative balance indicates them lending more than they received.
+The algorithm simply finds any two people whose balances have opposing signs.
+It is unimportant what is the magnitude of their balances (we do not need to take them in any order).
+What then happens is then the person with the smallest magnitude of balance neutralizes his balance by paying or being paid by the other party.
+The algorithm terminates when all balances are 0.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proof-of-optimality"><a class="link" href="#proof-of-optimality">3.3.2. Proof of optimality</a></h4>
+<div class="paragraph">
+<p>This is a short proof of optimality since we want it to be called "algorithm", not "heuristic".</p>
+</div>
+<div class="paragraph">
+<p>In essence what we are constructing is a bipartite graph.
+The algorithm never allows someone who owes to be paid, or someone who is owed to pay even more.
+Hence we can classify all nodes into those with leaving edges (payers) and those with entering edges (payee).</p>
+</div>
+<div class="paragraph">
+<p>In a bipartite graph the amount each person handles is minimized.
+To see why, we have to keep in mind that the algorithm always neutralizes one of the parties' balance.
+That is to say, we will not be left with the case where someone who could pay off all his debts "overpaying".
+In such a case, someone will then have to pay him back, which means it is no longer bipartite.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="time-and-space-complexity"><a class="link" href="#time-and-space-complexity">3.3.3. Time and Space complexity</a></h4>
+<div class="paragraph">
+<p>We take O(N^2) space and O(N) time.
+Updating of the balance sheet and matrices by the expense command is performed in O(1) time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.4. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-precision"><a class="link" href="#aspect-precision">Aspect: Precision</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Just use <code>double</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Easy, straightforward, good enough.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Floating point precision might stack up.</p>
+</li>
+<li>
+<p><strong>Reason for choice</strong>: For everyday purposes it is highly unlikely currencies (normally at most 2 decimal points) require any higher precision. This is for normal friends, not stockbrokers.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Implement a <code>Rational</code> class for rational numbers.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Guranteed precision.</p>
+</li>
+<li>
+<p>Cons: Seems overkill and needlessly over-engineered.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-feature"><a class="link" href="#list-feature">3.4. List feature</a></h3>
 <div class="paragraph">
 <p>The List mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
 </div>
@@ -589,7 +697,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.1. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.1. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-representing-the-current-context-state"><a class="link" href="#aspect-representing-the-current-context-state">Aspect: representing the current context state</a></h5>
 <div class="ulist">
@@ -626,9 +734,9 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-invite-disinvite-feature"><a class="link" href="#proposed-invite-disinvite-feature">3.4. [Proposed] Invite/Disinvite feature</a></h3>
+<h3 id="proposed-invite-disinvite-feature"><a class="link" href="#proposed-invite-disinvite-feature">3.5. [Proposed] Invite/Disinvite feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.4.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.5.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
 It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operations:</p>
@@ -706,7 +814,7 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-invite-disinvite-executes"><a class="link" href="#aspect-how-invite-disinvite-executes">Aspect: How invite &amp; disinvite executes</a></h5>
 <div class="ulist">
@@ -776,9 +884,9 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.5.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.6.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -920,7 +1028,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -990,20 +1098,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1034,7 +1142,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1651,4 +1759,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-29 13:38:09 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-29 14:55:42 UTC</div></div></div></body></html>
