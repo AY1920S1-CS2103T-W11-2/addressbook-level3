@@ -297,7 +297,9 @@ Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu'
 <div class="sect2">
 <h3 id="add-contacts-to-an-activity-code-invite-code"><a class="link" href="#add-contacts-to-an-activity-code-invite-code">4.7. Add contacts to an activity: <code>invite</code></a></h3>
 <div class="paragraph">
-<p>Adds a contact to the currently viewed activity. Multiple contacts can be added at once.</p>
+<p>Adds a contact in the contact list to the currently viewed activity. Multiple contacts can also be added at once.
+If there is no current viewed activity, then the contact cannot be added and there will be an error.
+If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message indicating non-unique search result will be shown instead.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>invite p/PERSON &#8230;&#8203;</code></p>
@@ -309,7 +311,11 @@ Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu'
 <ul>
 <li>
 <p><code>invite p/John Doe p/Mary</code><br>
-Adds both John Doe and Mary to the current activity.</p>
+Adds both John Doe and Mary to the current viewed activity.</p>
+</li>
+<li>
+<p><code>invite p/Mary p/David p/Alex</code><br>
+Adds David and Alex to the current viewed activity if they are found in the contact list. Mary will not be added into the activity again since she in already in the activity, a message indicating her existence in the activity will be shown instead.</p>
 </li>
 </ul>
 </div>
@@ -317,7 +323,10 @@ Adds both John Doe and Mary to the current activity.</p>
 <div class="sect2">
 <h3 id="remove-contacts-from-an-activity-code-disinvite-code"><a class="link" href="#remove-contacts-from-an-activity-code-disinvite-code">4.8. Remove contacts from an activity: <code>disinvite</code></a></h3>
 <div class="paragraph">
-<p>Removes a contact from the currently viewed activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be removed.</p>
+<p>Removes a contact from the currently viewed activity. Multiple contacts can also be removed at once.
+If there is no current viewed activity, then the contact cannot be removed and there will be an error.
+If the specified contact does not exist in the current activity, a warning message indicating that the contact does not exist in the current activity will be shown instead.
+If the specified contact is involved in an expense, he cannot be removed since he does not owe money to anyone and no one else owes him money and a warning message indicating that he is involved in an expense will be shown instead.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>disinvite p/PERSON &#8230;&#8203;</code></p>
@@ -585,4 +594,4 @@ Format: <code>exit</code></p>
 <strong>A</strong>: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.</p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-29 15:58:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-31 11:58:07 UTC</div></div></div></body></html>

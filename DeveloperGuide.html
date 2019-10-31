@@ -26,7 +26,7 @@
 <li><a href="#create-activity-feature">3.2. Create activity feature</a></li>
 <li><a href="#debt-simplification-algorithm">3.3. Debt simplification algorithm</a></li>
 <li><a href="#list-feature">3.4. List feature</a></li>
-<li><a href="#proposed-invite-disinvite-feature">3.5. [Proposed] Invite/Disinvite feature</a></li>
+<li><a href="#invite-disinvite-feature">3.5. Invite/Disinvite feature</a></li>
 <li><a href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></li>
 <li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
 <li><a href="#logging">3.8. Logging</a></li>
@@ -734,9 +734,9 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-invite-disinvite-feature"><a class="link" href="#proposed-invite-disinvite-feature">3.5. [Proposed] Invite/Disinvite feature</a></h3>
+<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.5. Invite/Disinvite feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.5.1. Proposed Implementation</a></h4>
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.5.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
 It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operations:</p>
@@ -761,10 +761,10 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <p>Step 1. The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>activity t/breakfast p/David</code> command to create an activity named breakfast in the activity book.</p>
+<p>Step 2. The user executes <code>activity t/breakfast p/David</code> command to create an activity named breakfast with <code>David</code> as the sole participant which is stored in the <code>activityList</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>invite p/Louis &#8230;&#8203;</code> to invite more people into the current activity. The <code>invite</code> command calls <code>Activity#invite()</code>, inviting more participants into the activity. The activityList will then be modified which is stored in the ActivityBook.</p>
+<p>Step 3. The user executes <code>invite p/Louis p/Mary&#8230;&#8203;</code> to invite more participants into the current viewed activity. The <code>invite</code> command calls <code>Activity#invite()</code>, inviting more participants into the activity. The <code>activityList</code> will then be modified with the newly invited participants which is then stored in the <code>ActivityBook</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the invite operation works:</p>
@@ -787,17 +787,30 @@ The lifeline for <code>InviteCommand</code> should end at the destroy marker (X)
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the <code>disinvite</code> command.</p>
+<p>Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Therefore, it is perfectly fine to remove that person from the activity since he does not owe money to anyone and no one else owes him money.
+Hence the user decides to remove that person by executing the <code>disinvite</code> command.</p>
 </div>
 <div class="paragraph">
-<p>Step 5. The user executes <code>disinvite p/Louis p/David &#8230;&#8203;</code> to remove participant(s) from the current activity. The <code>disinvite</code> command calls <code>Activity#disinvite()</code>, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.</p>
+<p>Step 5. The user executes <code>disinvite p/Louis p/David &#8230;&#8203;</code> to remove participant(s) from the current activity. The <code>disinvite</code> command calls <code>Activity#disinvite()</code>, removing participants from the activity. The <code>activityList</code> will then be modified due to a change in participants which is then stored in the <code>ActivityBook</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The sequence diagram for the disinvite operation is omitted as it is similar to the invite operation.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the disinvite operation works:</p>
+<p>The following activity diagram summarizes what happens when a user executes an invite command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/DisinviteSequenceDiagram.png" alt="DisinviteSequenceDiagram">
+<img src="images/InviteActivityDiagram.png" alt="InviteActivityDiagram">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -807,7 +820,7 @@ The lifeline for <code>InviteCommand</code> should end at the destroy marker (X)
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The lifeline for <code>DisinviteCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
 </td>
 </tr>
 </table>
@@ -824,10 +837,10 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: More user-friendly.</p>
+<p>Pros: More user-friendly. Users do not have to keep specifying which activity to invite the participants to each time an invite command is made.</p>
 </li>
 <li>
-<p>Cons: Harder to implement.</p>
+<p>Cons: Harder to implement. Have to consider which activity to invite the participants to based on the current viewed activity.</p>
 </li>
 </ul>
 </div>
@@ -853,7 +866,7 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the participants ID in the activity instead of participants.</p>
+<p><strong>Alternative 1 (current choice):</strong> Use a list to store the participants' ID in the activity instead of participants.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -866,14 +879,14 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Use list to store participants.</p>
+<p><strong>Alternative 2:</strong> Use list to store participants instead of ID</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
+<p>Pros: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.</p>
 </li>
 <li>
-<p>Cons: Harder to implement, might form same person object from the json file if not implemented properly.</p>
+<p>Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.</p>
 </li>
 </ul>
 </div>
@@ -886,7 +899,7 @@ The lifeline for <code>DisinviteCommand</code> should end at the destroy marker 
 <div class="sect2">
 <h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.6.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.6.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -1759,4 +1772,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-29 15:58:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-31 11:58:07 UTC</div></div></div></body></html>
