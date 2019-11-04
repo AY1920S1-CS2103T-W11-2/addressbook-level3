@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.DisinviteCommand.MESSAGE_NON_UNIQUE_SEARCH_RESULT;
+import static seedu.address.logic.commands.DisinviteCommand.MESSAGE_RESULT;
 import static seedu.address.logic.commands.DisinviteCommand.MESSAGE_RESULT_NONE_SUCCESS;
+import static seedu.address.logic.commands.DisinviteCommand.MESSAGE_SUCCESS_DISINVITE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -65,10 +67,14 @@ public class DisinviteCommandTest {
         List<Integer> ids = new ArrayList<>();
         ids.add(BENSON.getPrimaryKey());
         DisinviteCommand disinviteCommand = new DisinviteCommand(peopleToDisinvite);
-        disinviteCommand.execute(model);
+        CommandResult commandResult = disinviteCommand.execute(model);
+        String message = String.format(MESSAGE_SUCCESS_DISINVITE, ALICE.getName().fullName);
+        String warningMessage = "";
 
         assertEquals(1, activity.getParticipantIds().size());
         assertEquals(ids, activity.getParticipantIds());
+        assertEquals(String.format(MESSAGE_RESULT, message, warningMessage) + "\n",
+                commandResult.getFeedbackToUser());
 
         peopleToDisinvite.add(BENSON.getName().fullName);
         ids.clear();
