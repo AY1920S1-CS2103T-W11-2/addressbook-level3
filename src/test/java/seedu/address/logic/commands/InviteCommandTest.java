@@ -79,7 +79,6 @@ public class InviteCommandTest {
         assertEquals(2, activity.getParticipantIds().size());
         assertEquals(idsToInvite, activity.getParticipantIds());
 
-
     }
 
     @Test
@@ -157,9 +156,12 @@ public class InviteCommandTest {
 
         peopleToInvite.add(BENSON.getName().fullName);
         inviteCommand = new InviteCommand(peopleToInvite);
-        inviteCommand.execute(model);
+        commandResult = inviteCommand.execute(model);
+        message = message + "\n" + String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, BENSON.getName().fullName);
 
         assertEquals(0, activity.getParticipantIds().size());
+        assertEquals(String.format(MESSAGE_RESULT_NONE_SUCCESS, message) + "\n",
+                commandResult.getFeedbackToUser());
 
 
     }
@@ -179,10 +181,14 @@ public class InviteCommandTest {
         peopleToInvite.add("yeoh");
         idsToInvite.add(yeoh.getPrimaryKey());
         InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
-        inviteCommand.execute(model);
+        CommandResult commandResult = inviteCommand.execute(model);
+        String message = String.format(MESSAGE_SUCCESS_INVITE, yeoh.getName().fullName);
+        String warningMessage = "";
 
         assertEquals(1, activity.getParticipantIds().size());
         assertEquals(idsToInvite, activity.getParticipantIds());
+        assertEquals(String.format(MESSAGE_RESULT, message, warningMessage) + "\n",
+                commandResult.getFeedbackToUser());
 
     }
 
