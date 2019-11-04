@@ -147,16 +147,15 @@ public class DisinviteCommand extends Command {
         model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
 
         String result;
+        Context newContext = new Context(activityToDisinviteFrom);
+        model.setContext(newContext);
 
         if (successMessage.toString().equals("")) {
             result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
-            return new CommandResult(result);
         } else {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
-            Context newContext = new Context(activityToDisinviteFrom);
-            model.setContext(newContext);
-            return new CommandResult(result, newContext);
         }
+        return new CommandResult(result, newContext);
     }
 
     @Override
