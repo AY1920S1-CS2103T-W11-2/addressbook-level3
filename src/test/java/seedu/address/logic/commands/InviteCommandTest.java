@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.commands.InviteCommand.MESSAGE_NON_UNIQUE_SEARCH_RESULT;
+import static seedu.address.logic.commands.InviteCommand.MESSAGE_RESULT_NONE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -141,9 +143,12 @@ public class InviteCommandTest {
         List<String> peopleToInvite = new ArrayList<>();
         peopleToInvite.add(ALICE.getName().fullName);
         InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
-        inviteCommand.execute(model);
+        CommandResult commandResult = inviteCommand.execute(model);
+        String message = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, ALICE.getName().fullName);
 
         assertEquals(0, activity.getParticipantIds().size());
+        assertEquals(String.format(MESSAGE_RESULT_NONE_SUCCESS, message) + "\n",
+                commandResult.getFeedbackToUser());
 
         peopleToInvite.add(BENSON.getName().fullName);
         inviteCommand = new InviteCommand(peopleToInvite);
