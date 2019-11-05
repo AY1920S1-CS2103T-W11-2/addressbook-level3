@@ -29,7 +29,7 @@
 <li><a href="#remove-contacts-from-an-activity-code-disinvite-code">4.7. Remove contacts from an activity: <code>disinvite</code></a></li>
 <li><a href="#add-expenses-to-an-activity-code-expense-code">4.8. Add expenses to an activity : <code>expense</code></a></li>
 <li><a href="#edit-an-existing-contact-or-activity-code-edit-code">4.9. Edit an existing contact or activity : <code>edit</code></a></li>
-<li><a href="#finding-contacts-or-activities-v1-4-code-find-code">4.10. Finding contacts or activities (v1.4): <code>find</code></a></li>
+<li><a href="#finding-contacts-or-activities-code-find-code">4.10. Finding contacts or activities: <code>find</code></a></li>
 <li><a href="#deleting-a-contact-activity-or-expense-v1-4-code-delete-code">4.11. Deleting a contact, activity or expense (v1.4) : <code>delete</code></a></li>
 <li><a href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.12. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></li>
 <li><a href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.13. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></li>
@@ -271,7 +271,7 @@ Creates a new contact with name John Doe and mobile number 98765432.</p>
 <p>Initially, the application will search for contact with exact matching name.</p>
 </li>
 <li>
-<p>If no exact match is found, keyword matching is used instead. Refer to <a href="#Finding contacts or activities: <code>find</code>">[Finding contacts or activities: <code>find</code>]</a> for more details.</p>
+<p>If no exact match is found, keyword matching is used instead. Refer to <a href="#finding-contacts-or-activities-code-find-code">Section 4.10, &#8220;Finding contacts or activities: <code>find</code>&#8221;</a> for more details.</p>
 </li>
 <li>
 <p>For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.</p>
@@ -465,7 +465,7 @@ Edits the title of the current activity in view to <code>BBQ</code>. No changes 
 </div>
 </div>
 <div class="sect2">
-<h3 id="finding-contacts-or-activities-v1-4-code-find-code"><a class="link" href="#finding-contacts-or-activities-v1-4-code-find-code">4.10. Finding contacts or activities (v1.4): <code>find</code></a></h3>
+<h3 id="finding-contacts-or-activities-code-find-code"><a class="link" href="#finding-contacts-or-activities-code-find-code">4.10. Finding contacts or activities: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds contacts or activities whose name or title respectively contain <strong>any</strong> of the given keywords.</p>
 </div>
@@ -476,6 +476,12 @@ Edits the title of the current activity in view to <code>BBQ</code>. No changes 
 <div class="content">
 <div class="ulist">
 <ul>
+<li>
+<p>Find command can only be used when viewing list of activities or contacts.</p>
+</li>
+<li>
+<p>Find command will search for activities if used under list activity view. If used under list contact view, the find command will search for contacts.</p>
+</li>
 <li>
 <p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
 </li>
@@ -502,11 +508,8 @@ Edits the title of the current activity in view to <code>BBQ</code>. No changes 
 <ul>
 <li>
 <p><code>find John</code><br>
-Returns contacts (e.g. <code>john</code> and <code>John Doe</code>) and activities (e.g. <code>John birthday party</code>).</p>
-</li>
-<li>
-<p><code>find Betsy Tim John</code><br>
-Returns any contact or activity whose name or title contains the word <code>Betsy</code>, <code>Tim</code>, or <code>John</code>.</p>
+If currently viewing list of contacts, returns contacts (e.g. <code>john</code> and <code>John Doe</code>).
+If currently viewing list of activities, returns activities (e.g <code>lunch with john</code>).</p>
 </li>
 </ul>
 </div>
@@ -704,4 +707,4 @@ This operation is very dangerous! The person might be included in expenses or ot
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-03 08:30:04 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-05 11:12:07 UTC</div></div></div></body></html>
