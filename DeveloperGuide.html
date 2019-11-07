@@ -24,13 +24,14 @@
 <ul class="sectlevel2">
 <li><a href="#activity-class">3.1. Activity class</a></li>
 <li><a href="#create-activity-feature">3.2. Create activity feature</a></li>
-<li><a href="#debt-simplification-algorithm">3.3. Debt simplification algorithm</a></li>
-<li><a href="#list-feature">3.4. List feature</a></li>
-<li><a href="#invite-disinvite-feature">3.5. Invite/Disinvite feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.8. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
+<li><a href="#expense-class">3.3. Expense class</a></li>
+<li><a href="#debt-simplification-algorithm">3.4. Debt simplification algorithm</a></li>
+<li><a href="#list-feature">3.5. List feature</a></li>
+<li><a href="#invite-disinvite-feature">3.6. Invite/Disinvite feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.7. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.8. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.9. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -397,7 +398,7 @@ Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;O
 </ul>
 </div>
 <div class="paragraph">
-<p>Participants are saved internally under <code>participantIds</code>, which only stores the primary key of <code>Contact</code> involved.</p>
+<p>Participants are saved internally under <code>participantIds</code>, which only stores the primary key of <code>Person</code> involved.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -546,7 +547,121 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </div>
 </div>
 <div class="sect2">
-<h3 id="debt-simplification-algorithm"><a class="link" href="#debt-simplification-algorithm">3.3. Debt simplification algorithm</a></h3>
+<h3 id="expense-class"><a class="link" href="#expense-class">3.3. Expense class</a></h3>
+<div class="paragraph">
+<p><code>Expense</code> is a class used to record expense information. It contains the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Paying person</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each expense must be paid by someone, which is recorded as <code>personId</code> internally. As the name suggests, only the primary key of the <code>Person</code> paying is stored.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Other involved people</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each expense also involves some people who will be taken to owe money to the paying person. This is recorded as <code>involvedIds[]</code> internally, which only stores the primary key of each involved person.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Amount</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and ranges from 0.01 to 1000000.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Description</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The description of an expense. The description may be blank if the user chooses to not describe what it is about.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deleted flag</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This flag tracks whether an expense has been marked as deleted or not, and is stored as a boolean value <code>isDeleted</code>. For accountability purposes, we do not allow an <code>Expense</code> to be deleted from an <code>Activity</code> entirely, and instead use this flag to keep track of it. Expenses can only be fully deleted by deleting the entire activity.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Settlement flag</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>SplitWiser supports 2 main types of "expenses": one is an actual expense, and the other is a transaction between people to pay off debts. The latter is what we call a settlement, and is indicated by the boolean <code>isSettlement</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram describes the structure of the <code>Expense</code> class:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExpenseClassDiagram.png" alt="ExpenseClassDiagram">
+</div>
+<div class="title">Figure 10. Structure of the Expense class</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.1. Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-actually-represent-an-code-expense-code"><a class="link" href="#aspect-how-to-actually-represent-an-code-expense-code">Aspect: How to actually represent an <code>Expense</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: An expense is represented by a paying person, amount, and a list of people involved.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Reasonable flexibility as it enables a wide range of possible expense sharing combinations.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Forces equal split among participants in the involved list. A simple example would be that a group of people can have a meal together but each person&#8217;s meal would cost a different amount.</p>
+</li>
+<li>
+<p><strong>Reason for choice:</strong> Although the above con can be a very real issue from a user&#8217;s standpoint, we believe this is the best balance between flexibility and usability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Ultimate flexibility and addresses the con above.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Significantly complicates the process of expense adding for the user and the verification process in the backend. Many potential issues may arise, such as the issue of reconciling what happens if the amount list specified does not add up to the amount paid by the paying person.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="debt-simplification-algorithm"><a class="link" href="#debt-simplification-algorithm">3.4. Debt simplification algorithm</a></h3>
 <div class="paragraph">
 <p>The algorithm is inspired by <a href="https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf">this paper</a>.</p>
 </div>
@@ -557,7 +672,7 @@ We are unable to minimize the number of transactions made.
 The paper gives an overview of that problem and why it is NP-complete (subset-sum).</p>
 </div>
 <div class="sect3">
-<h4 id="operation-details"><a class="link" href="#operation-details">3.3.1. Operation details</a></h4>
+<h4 id="operation-details"><a class="link" href="#operation-details">3.4.1. Operation details</a></h4>
 <div class="paragraph">
 <p>The amounts each person owes to another is represented by a graph in an adjacency matrix.
 The algorithm represents the payments to be made as a matrix.
@@ -586,7 +701,7 @@ The algorithm terminates when all balances are 0.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proof-of-optimality"><a class="link" href="#proof-of-optimality">3.3.2. Proof of optimality</a></h4>
+<h4 id="proof-of-optimality"><a class="link" href="#proof-of-optimality">3.4.2. Proof of optimality</a></h4>
 <div class="paragraph">
 <p>This is a short proof of optimality since we want it to be called "algorithm", not "heuristic".</p>
 </div>
@@ -603,14 +718,14 @@ In such a case, someone will then have to pay him back, which means it is no lon
 </div>
 </div>
 <div class="sect3">
-<h4 id="time-and-space-complexity"><a class="link" href="#time-and-space-complexity">3.3.3. Time and Space complexity</a></h4>
+<h4 id="time-and-space-complexity"><a class="link" href="#time-and-space-complexity">3.4.3. Time and Space complexity</a></h4>
 <div class="paragraph">
 <p>We take O(N^2) space and O(N) time.
 Updating of the balance sheet and matrices by the expense command is performed in O(1) time.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.4. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-precision"><a class="link" href="#aspect-precision">Aspect: Precision</a></h5>
 <div class="ulist">
@@ -650,7 +765,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-feature"><a class="link" href="#list-feature">3.4. List feature</a></h3>
+<h3 id="list-feature"><a class="link" href="#list-feature">3.5. List feature</a></h3>
 <div class="paragraph">
 <p>The List mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
 </div>
@@ -694,7 +809,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.1. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.1. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-representing-the-current-context-state"><a class="link" href="#aspect-representing-the-current-context-state">Aspect: representing the current context state</a></h5>
 <div class="ulist">
@@ -731,9 +846,9 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.5. Invite/Disinvite feature</a></h3>
+<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.6. Invite/Disinvite feature</a></h3>
 <div class="sect3">
-<h4 id="implementation-2"><a class="link" href="#implementation-2">3.5.1. Implementation</a></h4>
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.6.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
 It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operations:</p>
@@ -824,7 +939,7 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-invite-disinvite-executes"><a class="link" href="#aspect-how-invite-disinvite-executes">Aspect: How invite &amp; disinvite executes</a></h5>
 <div class="ulist">
@@ -894,9 +1009,9 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.7. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.6.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.7.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -1038,7 +1153,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -1108,20 +1223,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.8. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.9. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.10, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1152,7 +1267,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.10. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1769,4 +1884,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 10:05:35 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 14:35:20 UTC</div></div></div></body></html>
