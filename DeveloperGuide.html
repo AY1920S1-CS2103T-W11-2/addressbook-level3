@@ -25,13 +25,14 @@
 <li><a href="#activity-class">3.1. Activity class</a></li>
 <li><a href="#create-activity-feature">3.2. Create activity feature</a></li>
 <li><a href="#expense-class">3.3. Expense class</a></li>
-<li><a href="#debt-simplification-algorithm">3.4. Debt simplification algorithm</a></li>
-<li><a href="#list-feature">3.5. List feature</a></li>
-<li><a href="#invite-disinvite-feature">3.6. Invite/Disinvite feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.7. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.8. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.9. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
+<li><a href="#create-expense-feature">3.4. Create expense feature</a></li>
+<li><a href="#debt-simplification-algorithm">3.5. Debt simplification algorithm</a></li>
+<li><a href="#list-feature">3.6. List feature</a></li>
+<li><a href="#invite-disinvite-feature">3.7. Invite/Disinvite feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.8. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.9. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.10. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.11. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -579,7 +580,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </ul>
 </div>
 <div class="paragraph">
-<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and ranges from 0.01 to 1000000.</p>
+<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and must be non-negative.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -627,14 +628,27 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice)</strong>: An expense is represented by a paying person, amount, and a list of people involved.</p>
+<p><strong>Alternative 1</strong>: An expense is represented by a paying person and an amount. Everyone in the activity is then taken to owe the paying person an equal portion of the paid amount.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Extremely simple to use.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Overly idealised and simplified and assumes that everyone is involved in every expense. This severely hinders its utility in real scenarios as this is unable to account for even simple deviations in debt patterns.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice)</strong>: An expense is represented by a paying person, amount, and a list of people involved. Everyone who is specified to be involved then owes an equal portion of the paid amount to the paying person.</p>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>Pros:</strong> Reasonable flexibility as it enables a wide range of possible expense sharing combinations.</p>
 </li>
 <li>
-<p><strong>Cons:</strong> Forces equal split among participants in the involved list. A simple example would be that a group of people can have a meal together but each person&#8217;s meal would cost a different amount.</p>
+<p><strong>Cons:</strong> Forces equal split among participants in the involved list, which is still going to result in limited utility in some real scenarios. A simple example would be that a group of people can have a meal together but each person&#8217;s meal would cost a different amount.</p>
 </li>
 <li>
 <p><strong>Reason for choice:</strong> Although the above con can be a very real issue from a user&#8217;s standpoint, we believe this is the best balance between flexibility and usability.</p>
@@ -643,14 +657,27 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong>: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.</p>
+<p><strong>Alternative 3</strong>: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.</p>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>Pros:</strong> Ultimate flexibility and addresses the con above.</p>
 </li>
 <li>
-<p><strong>Cons:</strong> Significantly complicates the process of expense adding for the user and the verification process in the backend. Many potential issues may arise, such as the issue of reconciling what happens if the amount list specified does not add up to the amount paid by the paying person.</p>
+<p><strong>Cons:</strong> Significantly complicates the backend management of expenses. While this is something that will definitely be addressed in future versions of SplitWiser (e.g. adding a new <code>varexpense</code> command that enables this), we opted for a simpler version of <code>Expense</code> due to time constraints. The areas that need to be taken into consideration include (but may not limited to):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Design of the command for the user in a way that is intuitive</p>
+</li>
+<li>
+<p>Managing the event that the amount list does not add up to the amount paid</p>
+</li>
+<li>
+<p>GUI representation of the more generalised version of <code>Expense</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -661,7 +688,64 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 </div>
 </div>
 <div class="sect2">
-<h3 id="debt-simplification-algorithm"><a class="link" href="#debt-simplification-algorithm">3.4. Debt simplification algorithm</a></h3>
+<h3 id="create-expense-feature"><a class="link" href="#create-expense-feature">3.4. Create expense feature</a></h3>
+<div class="paragraph">
+<p>The mechanism to create expenses is facilitated by <code>Expense</code>. Each <code>Activity</code> stores a list of <code>Expense</code> called <code>expenses</code>, representing the expenses incurred in the course of this activity.</p>
+</div>
+<div class="paragraph">
+<p>When creating an expense, an amount and at least one person (the paying person) must be specified, and information about an expense cannot be modified once it is created. The only exception to this would be to delete an expense, but expenses also cannot be un-deleted once marked as deleted.</p>
+</div>
+<div class="paragraph">
+<p>In terms of the name searching logic to actually identify who is involved, it is identical to that which is used in the creation of activities (see <a href="#create-activity-feature">Section 3.2, &#8220;Create activity feature&#8221;</a>), but with a few key differences:<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The expense will only be created if <strong>all</strong> sets of keywords result in a unique match. For instance, if the user specifies <code>p/John Doe p/Mary p/James</code>, but only the keyword <code>James</code> does not successfully identify a unique person, then the entire expense will not be created.</p>
+</li>
+<li>
+<p>The search scope is contextual. If creating an expense outside an activity context, it will search for matches in the entire Address Book. However, in an activity context, it will only search for matches among existing activity participants.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here, it is important to realise that duplicating the name searching logic ensures a consistent user experience, as the user has no reason to expect that the search behaviour would be different. For example, if <code>john</code> was successfully used to identify a contact named <code>John Doe</code> when creating an activity, the user has no reason to expect that <code>john</code> would not be able to identify <code>John Doe</code> for an expense.</p>
+</div>
+<div class="paragraph">
+<p>Here is a sample use case in creating an expense:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The user executes <code>activity t/breakfast p/Jo p/Bob p/Alice</code> command to create an activity named breakfast with 3 participants added to the activity. The context is then switched to this new activity.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user executes <code>expense p/Jo e/10</code> to indicate that Jo paid $10 for something (unnamed as description is not specified) that is shared by everyone i.e. Bob and Alice. This happens because the default behaviour for <code>expense</code> is to assume everyone is involved if no one else is specified explicitly. <code>expense</code> command calls <code>Activity#addExpense()</code> and adds the new expense into the activity. The debt algorithm will then instantly recompute the debt matrix (see <a href="#debt-simplification-algorithm">Section 3.5, &#8220;Debt simplification algorithm&#8221;</a>) for the activity, and store the expense object inside the activity&#8217;s expense list (i.e. <code>expenses</code>).</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the expense adding operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExpenseSequenceDiagram.png" alt="ExpenseSequenceDiagram">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>ExpenseCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="debt-simplification-algorithm"><a class="link" href="#debt-simplification-algorithm">3.5. Debt simplification algorithm</a></h3>
 <div class="paragraph">
 <p>The algorithm is inspired by <a href="https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf">this paper</a>.</p>
 </div>
@@ -672,7 +756,7 @@ We are unable to minimize the number of transactions made.
 The paper gives an overview of that problem and why it is NP-complete (subset-sum).</p>
 </div>
 <div class="sect3">
-<h4 id="operation-details"><a class="link" href="#operation-details">3.4.1. Operation details</a></h4>
+<h4 id="operation-details"><a class="link" href="#operation-details">3.5.1. Operation details</a></h4>
 <div class="paragraph">
 <p>The amounts each person owes to another is represented by a graph in an adjacency matrix.
 The algorithm represents the payments to be made as a matrix.
@@ -701,7 +785,7 @@ The algorithm terminates when all balances are 0.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proof-of-optimality"><a class="link" href="#proof-of-optimality">3.4.2. Proof of optimality</a></h4>
+<h4 id="proof-of-optimality"><a class="link" href="#proof-of-optimality">3.5.2. Proof of optimality</a></h4>
 <div class="paragraph">
 <p>This is a short proof of optimality since we want it to be called "algorithm", not "heuristic".</p>
 </div>
@@ -718,14 +802,14 @@ In such a case, someone will then have to pay him back, which means it is no lon
 </div>
 </div>
 <div class="sect3">
-<h4 id="time-and-space-complexity"><a class="link" href="#time-and-space-complexity">3.4.3. Time and Space complexity</a></h4>
+<h4 id="time-and-space-complexity"><a class="link" href="#time-and-space-complexity">3.5.3. Time and Space complexity</a></h4>
 <div class="paragraph">
 <p>We take O(N^2) space and O(N) time.
 Updating of the balance sheet and matrices by the expense command is performed in O(1) time.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.4. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-precision"><a class="link" href="#aspect-precision">Aspect: Precision</a></h5>
 <div class="ulist">
@@ -765,7 +849,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-feature"><a class="link" href="#list-feature">3.5. List feature</a></h3>
+<h3 id="list-feature"><a class="link" href="#list-feature">3.6. List feature</a></h3>
 <div class="paragraph">
 <p>The List mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
 </div>
@@ -809,7 +893,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.1. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.1. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-representing-the-current-context-state"><a class="link" href="#aspect-representing-the-current-context-state">Aspect: representing the current context state</a></h5>
 <div class="ulist">
@@ -846,9 +930,9 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.6. Invite/Disinvite feature</a></h3>
+<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.7. Invite/Disinvite feature</a></h3>
 <div class="sect3">
-<h4 id="implementation-2"><a class="link" href="#implementation-2">3.6.1. Implementation</a></h4>
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.7.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
 It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operations:</p>
@@ -939,7 +1023,7 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-invite-disinvite-executes"><a class="link" href="#aspect-how-invite-disinvite-executes">Aspect: How invite &amp; disinvite executes</a></h5>
 <div class="ulist">
@@ -1009,9 +1093,9 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.7. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.8. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.7.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.8.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -1153,7 +1237,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.8.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -1223,20 +1307,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.8. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.9. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.9. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.10. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.10, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.11, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1267,7 +1351,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.10. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.11. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1884,4 +1968,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-08 16:30:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-09 12:03:47 UTC</div></div></div></body></html>

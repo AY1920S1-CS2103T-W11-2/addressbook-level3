@@ -32,9 +32,10 @@
 <li><a href="#edit-an-existing-contact-or-activity-code-edit-code">4.10. Edit an existing contact or activity : <code>edit</code></a></li>
 <li><a href="#finding-contacts-or-activities-code-find-code">4.11. Finding contacts or activities: <code>find</code></a></li>
 <li><a href="#deleting-a-contact-activity-or-expense-v1-4-code-delete-code">4.12. Deleting a contact, activity or expense (v1.4) : <code>delete</code></a></li>
-<li><a href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.13. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></li>
-<li><a href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.14. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.15. Exiting the program : <code>exit</code></a></li>
+<li><a href="#add-variable-split-expenses-to-an-activity-code-varexpense-code-strong-v2-0-only-strong">4.13. Add variable split expenses to an activity: <code>varexpense</code> (<strong>v2.0 only</strong>)</a></li>
+<li><a href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.14. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></li>
+<li><a href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.15. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.16. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -367,7 +368,7 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 <p>If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money.<br></p>
 </div>
 <div class="paragraph">
-<p>If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if <code>activity t/ACTIVITY_NAME</code> was called). The expense and contact(s) will then be added to the activity.<br></p>
+<p>If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if <code>activity t/ACTIVITY_NAME</code> was called). The expense and contact(s) will then be added to the activity. You may wish to change the title of this new activity using the <code>edit</code> command thereafter (refer to <a href="#edit-an-existing-contact-or-activity-code-edit-code">Section 4.10, &#8220;Edit an existing contact or activity : <code>edit</code>&#8221;</a>).<br></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>expense p/PERSON e/AMOUNT_PAID [p/PERSON &#8230;&#8203;] [d/DESCRIPTION]</code></p>
@@ -380,10 +381,7 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 <p>Exactly one expense amount must be provided.</p>
 </li>
 <li>
-<p>The amount specified will be rounded to 2 decimal places.</p>
-</li>
-<li>
-<p>After rounding, the allowable expense amount for any single expense is from $0.01 to $1,000,000.</p>
+<p>The allowable expense amount for any single expense must range from $0.01 to $1,000,000 when rounded to 2 decimal places.</p>
 </li>
 </ul>
 </div>
@@ -488,7 +486,7 @@ If instead Joseph owes Mary $10, the command will fail, since in this case any w
 <p>Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG] &#8230;&#8203;</code> for contacts OR <code>edit [t/ACTIVITY_TITLE]</code> for activities.</p>
+<p>Format: <code>edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG &#8230;&#8203;]</code> for contacts OR <code>edit [t/ACTIVITY_TITLE]</code> for activities.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -634,7 +632,30 @@ Deletes the 1st entry (either a contact or activity) in the results of the <code
 </div>
 </div>
 <div class="sect2">
-<h3 id="assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong"><a class="link" href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.13. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></h3>
+<h3 id="add-variable-split-expenses-to-an-activity-code-varexpense-code-strong-v2-0-only-strong"><a class="link" href="#add-variable-split-expenses-to-an-activity-code-varexpense-code-strong-v2-0-only-strong">4.13. Add variable split expenses to an activity: <code>varexpense</code> (<strong>v2.0 only</strong>)</a></h3>
+<div class="paragraph">
+<p>Creates a new expense with a list of (contact, amount) pairs and an optional description, and adds it to the currently viewed activity. The very first (contact, amount) pair will represent the person paying and the amount paid. Every subsequent (contact, amount) pair will then represent the cost incurred by each person in this expense.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>varexpense p/PERSON e/AMOUNT [d/DESCRIPTION] [(p/PERSON e/AMOUNT) &#8230;&#8203;]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The first amount (i.e. the paid amount) must be greater than or equal to the sum of all subsequent amounts specified.</p>
+</li>
+<li>
+<p>If the numbers do not add up to the paid amount, any excess value is taken to be incurred by the paying person.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong"><a class="link" href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.14. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></h3>
 <div class="paragraph">
 <p>Assigns an activity as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or an invalid activity ID is provided, no change is made.</p>
 </div>
@@ -657,7 +678,7 @@ If viewing an activity with title 'Family trip', assigns the activities with IDs
 </div>
 </div>
 <div class="sect2">
-<h3 id="update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong"><a class="link" href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.14. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></h3>
+<h3 id="update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong"><a class="link" href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.15. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></h3>
 <div class="paragraph">
 <p>Marks an activity as resolved, clearing (removing) the debts within from each contact.</p>
 </div>
@@ -680,7 +701,7 @@ Marks the activities with activity ID 3 and 4 as resolved, updating the aggregat
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.15. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.16. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
@@ -769,4 +790,4 @@ This operation is very dangerous! The person might be included in expenses or ot
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-08 16:30:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-09 12:03:47 UTC</div></div></div></body></html>
