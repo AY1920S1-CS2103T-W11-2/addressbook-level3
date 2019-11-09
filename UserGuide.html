@@ -31,7 +31,7 @@
 <li><a href="#settle-debts-in-an-activity-code-settle-code">4.9. Settle debts in an activity : <code>settle</code></a></li>
 <li><a href="#edit-an-existing-contact-or-activity-code-edit-code">4.10. Edit an existing contact or activity : <code>edit</code></a></li>
 <li><a href="#finding-contacts-or-activities-code-find-code">4.11. Finding contacts or activities: <code>find</code></a></li>
-<li><a href="#deleting-a-contact-activity-or-expense-v1-4-code-delete-code">4.12. Deleting a contact, activity or expense (v1.4) : <code>delete</code></a></li>
+<li><a href="#deleting-a-contact-activity-or-expense-code-delete-code">4.12. Deleting a contact, activity or expense: <code>delete</code></a></li>
 <li><a href="#add-variable-split-expenses-to-an-activity-code-varexpense-code-strong-v2-0-only-strong">4.13. Add variable split expenses to an activity: <code>varexpense</code> (<strong>v2.0 only</strong>)</a></li>
 <li><a href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">4.14. Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></li>
 <li><a href="#update-an-activity-as-resolved-code-close-code-strong-v2-0-only-strong">4.15. Update an activity as resolved: <code>close</code> (<strong>v2.0 only</strong>)</a></li>
@@ -575,21 +575,24 @@ If currently viewing list of activities, returns activities (e.g <code>lunch wit
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-contact-activity-or-expense-v1-4-code-delete-code"><a class="link" href="#deleting-a-contact-activity-or-expense-v1-4-code-delete-code">4.12. Deleting a contact, activity or expense (v1.4) : <code>delete</code></a></h3>
+<h3 id="deleting-a-contact-activity-or-expense-code-delete-code"><a class="link" href="#deleting-a-contact-activity-or-expense-code-delete-code">4.12. Deleting a contact, activity or expense: <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.</p>
+<p>Deletes the contact/activity/expense at the specified index from the current display.<br></p>
 </div>
 <div class="paragraph">
-<p>If viewing a contact instead, the contact will be deleted.</p>
+<p>If current display is listing contacts <code>list c/</code>, the contact at that specified index will be deleted if he/she is not involved in any activities.</p>
 </div>
 <div class="paragraph">
-<p>If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted.<br></p>
+<p>If current display is listing activities <code>list a/</code>, the activity at that specified index will be deleted.</p>
 </div>
 <div class="paragraph">
-<p>Multiple entries can be deleted at once.</p>
+<p>If viewing an activity instead <code>view a/1</code>, it will soft-delete an expense* by index.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>delete [INDEX] &#8230;&#8203;</code></p>
+<p>If the current display is not any of the above displays mentioned, error will be thrown.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -599,7 +602,7 @@ If currently viewing list of activities, returns activities (e.g <code>lunch wit
 <p>Deletes the entry at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed contact or activity or expense list.</p>
+<p>The index refers to the index number shown in the displayed list of contacts/activities.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -618,15 +621,15 @@ If currently viewing list of activities, returns activities (e.g <code>lunch wit
 <ul>
 <li>
 <p><code>delete 2</code><br>
-If viewing the list of contacts, deletes the 2nd person by index.<br>
-If viewing a contact, deletes the contact.<br>
-If viewing the list of activities, deletes the 2nd activity by index.<br>
-If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.</p>
+If viewing the list of contacts, deletes the 2nd person by index if he/she is not involved in any activity.<br></p>
 </li>
 <li>
-<p><code>find Betsy</code><br>
-<code>delete 1</code><br>
-Deletes the 1st entry (either a contact or activity) in the results of the <code>find</code> command.</p>
+<p><code>delete 1</code><br>
+If viewing the list of activities, deletes the 1st activity by index.<br></p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.</p>
 </li>
 </ul>
 </div>
@@ -790,4 +793,4 @@ This operation is very dangerous! The person might be included in expenses or ot
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-09 14:41:49 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-09 15:05:57 UTC</div></div></div></body></html>
