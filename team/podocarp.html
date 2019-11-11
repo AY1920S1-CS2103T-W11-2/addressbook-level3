@@ -208,7 +208,7 @@ If no match is found for any person provided, or if multiple matches are found, 
 </div>
 <div class="paragraph">
 <p>An entry will be added within the activity display so you can keep track of past payments.
-These entries will have a generic description tagged to them to make it clear what it is.</p>
+These entries will have a generic description tagged to them to make it clear what it is, and they will also be highlighted in a frame to distinguish them from ordinary expenses.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>expense p/PERSON1 e/AMOUNT_PAID p/PERSON2</code></p>
@@ -231,29 +231,55 @@ These entries will have a generic description tagged to them to make it clear wh
 </div>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Example run:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>settle p/John p/bob e/100</code><br>
-Adds an settlement to the activity stating thet John has paid Bob $100.
-If John owes less than $100 to Bob, the command will be rejected.
-If no activity is currently viewed, an error will occur as it is unclear where to add the entry.</p>
-</li>
-<li>
-<p><code>expense p/Mary p/Joseph</code><br>
-Say Mary owes Joseph $10.
-Then the command will add an settlement assuming Mary paid Joseph exactly $10.
-If instead Joseph owes Mary $10, the command will fail, since in this case any way of Mary paying Joseph will only make the debt worse.
-== Powerusers</p>
+<p>Go to the activity you wish to modify with the <code>list a/</code> and <code>view</code> commands.
+You will see something like this:</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
+<p><span class="image"><img src="../images/settle-view-activity.png" alt="settle view activity" width="300"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>settle p/alex p/david e/10</code><br>
+Adds an settlement to the activity stating that Alex has paid David $10.
+If Alex owes less than $10 to David, the command will be rejected.
+In this case it is accepted since Alex owes about $20 or so to David.
+The two pictures below show what will happen before and after the command.
+Notice the new expense added, which is also conveniently highlighted.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../images/settle-enter-command.png" alt="settle enter command" width="300"></span> <span class="image"><img src="../images/settle-result.png" alt="settle result" width="300"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>expense p/charlotte p/li</code><br>
+No amount to pay is provided, so it is assumed that Charlotte wants to pay David (Li) as much as is needed to clean their debt.
+This is what we see:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../images/settle-result-2.png" alt="settle result 2" width="300"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="powerusers"><a class="link" href="#powerusers">Powerusers</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
 <p>Certain features are not included intentionally, as some of them may potentially result in undefined behavior.
 Hence, everything covered in this section is performed by <strong>you</strong> in the explicit knowledge that <strong>something might break</strong>!</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="force-deleting-expenses"><a class="link" href="#force-deleting-expenses">Force deleting expenses</a></h3>
@@ -440,4 +466,4 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 13:35:22 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 13:56:54 UTC</div></div></div></body></html>
