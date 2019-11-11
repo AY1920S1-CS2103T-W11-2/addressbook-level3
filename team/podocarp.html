@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Jia Xiaodong - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">SplitWiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-W11-2/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Jia Xiaodong - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-splitwiser"><a class="link" href="#project-splitwiser">PROJECT: Splitwiser</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Splitwiser is an application for simplifying payments made between groups of friends.
+It gurantees that each person does not need to make any unnecessary transfers to settle their debts.
+The user interacts with it using a CLI, and is targeted at users who prefer CLI utilities.
+It however has a nice JavaFX GUI to report details graphically and intuitvely.
+It has &gt;10k LOC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: added the debt simplification algorithm.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: It simplifies all debts optimally in each activity.</p>
+</li>
+<li>
+<p>Justification: This is the core feature, and the main point of the entire application.</p>
+</li>
+<li>
+<p>Details: The algorithm scales well to huge amounts of participants and expenses, and can be mathematically proved to always minimize the money everyone has to touch in order to settle all debts in the group. <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/101">#101</a></p>
+</li>
+<li>
+<p>Credits: <a href="https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf">This paper</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Major enhancement</strong>: Added a command to settle debts</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: The <code>settle</code> command helps users record settlements of debts after they pay each other in person.</p>
+</li>
+<li>
+<p>Justification: It is a core feature to be able to record special payments between two people specifically to settle debts.</p>
+</li>
+<li>
+<p>Details: The algorithm shows how much is owed. <code>settle</code> can either automatically settle all debts between two people, or settle a particular amount between two people. It also checks for valid settlements; so no settlement can make debts worse in accord with our philosophy of always simplifying debts. <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190">#190</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Major enhancement</strong>: Added persistent internal state for primary key tracking.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: It keeps track of important variables across startups of the application.</p>
+</li>
+<li>
+<p>Justification: We require a unique identifier for every person and activity for the purpose of storing activities, contacts, etc. We need a way to store this across startups so it is unique.</p>
+</li>
+<li>
+<p>Details: This ID record for every object has to persist so that we don&#8217;t end up assigning repeated IDs to different people/activities. We also need to perform validation on this data. <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80">#80</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/104">#104</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Major enhancement</strong>: Update bindings for every command to mesh with the algorithm.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Details: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119">#119</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120">#120</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110">#110</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Details: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53">#53</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: <a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=podocarp&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false">Contribution info</a>.</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added Travis CI for code quality assurance.</p>
+</li>
+<li>
+<p>Added Coveralls for code test coverage assurance.</p>
+</li>
+<li>
+<p>Reviewed and assisted in major PR for <code>ExpenseCommand</code> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98">#98</a></p>
+</li>
+<li>
+<p>Reviewed major PR for <code>ActivityCommand</code> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73">#73</a></p>
+</li>
+<li>
+<p>Reviewed major PR for <code>InviteCommand</code> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/103">#103</a></p>
+</li>
+<li>
+<p>Reviewed smaller non-trivial PRs: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/46">#46</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/54">#54</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/72">#72</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/81">#81</a> <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/117">#117</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added tests on other&#8217;s pull requests: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98/commits/dbb83e2fe5c01098d8c9a0ddfabc7f8964e8207e">(dbb83e)</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Helping others:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Provided extensive testing and supplied major nontrivial bugs on other&#8217;s repo. Some examples:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Program state not saving during shutdown: <a href="https://github.com/AY1920S1-CS2103T-T11-3/main/issues/211">#211</a></p>
+</li>
+<li>
+<p>Save file can enter an error state: <a href="https://github.com/AY1920S1-CS2103T-T11-3/main/issues/213">#213</a></p>
+</li>
+<li>
+<p>Data invalidation incomplete: <a href="https://github.com/AY1920S1-CS2103T-T11-3/main/issues/214">#214</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="settle-debts-in-an-activity-code-settle-code"><a class="link" href="#settle-debts-in-an-activity-code-settle-code">Settle debts in an activity : <code>settle</code></a></h3>
+<div class="paragraph">
+<p>Settles the debt between two people within the currently viewed activity.
+Specify two people, and optionally an amount <code>AMOUNT_PAID</code> to settle.</p>
+</div>
+<div class="paragraph">
+<p>There are two options available:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AMOUNT_PAID</code> is not provided: then the command will automatically calculate the minumum needed to settle the debt and use that as the amount.</p>
+</li>
+<li>
+<p><code>AMOUNT_PAID</code> is provided: the command will use this amount.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The first person specified <code>PERSON1</code> will pay <code>PERSON2</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>PERSON1</code> and <code>PERSON2</code> can be any part of the names of the activity participants you wish to target.
+Generally it is similar to how you would add an ordinary expense.
+If no match is found for any person provided, or if multiple matches are found, the command will do nothing as it is ambiguous.</p>
+</div>
+<div class="paragraph">
+<p>An entry will be added within the activity display so you can keep track of past payments.
+These entries will have a generic description tagged to them to make it clear what it is.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>expense p/PERSON1 e/AMOUNT_PAID p/PERSON2</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You cannot settle wih an amount greater than what is needed.</p>
+</li>
+<li>
+<p>For example, if Bob owes Alice $10, you cannot settle with Bob paying Alice $20.</p>
+</li>
+<li>
+<p>Naturally this also means that in this case Alice paying Bob is not possible, since that would suggest paying a negative amount of money!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>settle p/John p/bob e/100</code><br>
+Adds an settlement to the activity stating thet John has paid Bob $100.
+If John owes less than $100 to Bob, the command will be rejected.
+If no activity is currently viewed, an error will occur as it is unclear where to add the entry.</p>
+</li>
+<li>
+<p><code>expense p/Mary p/Joseph</code><br>
+Say Mary owes Joseph $10.
+Then the command will add an settlement assuming Mary paid Joseph exactly $10.
+If instead Joseph owes Mary $10, the command will fail, since in this case any way of Mary paying Joseph will only make the debt worse.
+== Powerusers</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Certain features are not included intentionally, as some of them may potentially result in undefined behavior.
+Hence, everything covered in this section is performed by <strong>you</strong> in the explicit knowledge that <strong>something might break</strong>!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="force-deleting-expenses"><a class="link" href="#force-deleting-expenses">Force deleting expenses</a></h3>
+<div class="paragraph">
+<p>The default behavior for <code>disinvite</code> is to never allow permanant deletion for expenses.
+What you will see instead is that it is striked out in the UI.
+This is for good reason!
+It preserves accountability and transparency.</p>
+</div>
+<div class="paragraph">
+<p>You can however forcibly delete an expense by editing the <code>data/activitybook.json</code> file if you so incline.
+Before anything, find out the <code>ID</code> of the expense that you wish to remove (this is different from the <code>#</code> index shown on the right of the GUI).
+Ensure the application is closed, then find the activity in question in the <code>json</code>, and edit the <code>expenses</code> field as you wish.</p>
+</div>
+<div class="paragraph">
+<p>After restarting you will see that the expense is permanantly removed from the activity.
+The debts will have been recalculated as though it was never there.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Deleting an expense does not care about the existing debts caused by that expense!
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="force-disinvite-from-activity"><a class="link" href="#force-disinvite-from-activity">Force disinvite from activity</a></h3>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>If a contact is involved in an expense, he/she cannot be removed.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; User Guide on the disinvite command
+</div>
+</div>
+<div class="paragraph">
+<p>To forcibly remove a contact from an activity, you will have to edit <code>data/activitybook.json</code>.
+Before anything, find out the <code>ID</code> of the person that you wish to remove (this is different from the <code>#</code> index shown on the right of the GUI).
+You should also be extremely sure that the contact is not involved in any other activities or expenses.
+Ensure the application is closed, then find the activity in question in the <code>json</code>, and edit the <code>participants</code> field as you wish.</p>
+</div>
+<div class="paragraph">
+<p>After restarting you will see that the person is permanantly removed from the activity.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+This operation is very dangerous! The person might be included in expenses or other activities&#8201;&#8212;&#8201;in that case, an error will be generated and the application will reset.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="debt-simplification-algorithm"><a class="link" href="#debt-simplification-algorithm">Debt simplification algorithm</a></h3>
+<div class="paragraph">
+<p>The algorithm is inspired by <a href="https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf">this paper</a>.</p>
+</div>
+<div class="paragraph">
+<p>We can gurantee the removal of all needless payments.
+The amount of money each person has to hand is minimized.
+We are unable to minimize the number of transactions made.
+The paper gives an overview of that problem and why it is NP-complete (subset-sum).</p>
+</div>
+<div class="sect3">
+<h4 id="operation-details"><a class="link" href="#operation-details">Operation details</a></h4>
+<div class="paragraph">
+<p>The amounts each person owes to another is represented by a graph in an adjacency matrix.
+The algorithm represents the payments to be made as a matrix.
+There are some other data structures to facilitate its operation, but the code is generally well commented and they are not major player so we will skip them.</p>
+</div>
+<div class="paragraph">
+<p>To rephrase our gurantee in this context will be: we want to minimize weights.
+That is, the total amount of money someone will have to touch is minimized.</p>
+</div>
+<div class="paragraph">
+<p>The lower bound for the amount someone has to handle is the balance.
+We create a balance sheeet for the users which is expanded as people enter the activity.
+Each expense added, the algorithm retrieves from it:
+* who is involved,
+* who paid,
+* how much has been paid,
+splits everything correctly, and updates all the data structures appropriately.</p>
+</div>
+<div class="paragraph">
+<p>Someone&#8217;s balance is positive if he received more than he owes.
+Then, a negative balance indicates them lending more than they received.
+The algorithm simply finds any two people whose balances have opposing signs.
+It is unimportant what is the magnitude of their balances (we do not need to take them in any order).
+What then happens is then the person with the smallest magnitude of balance neutralizes his balance by paying or being paid by the other party.
+The algorithm terminates when all balances are 0.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proof-of-optimality"><a class="link" href="#proof-of-optimality">Proof of optimality</a></h4>
+<div class="paragraph">
+<p>This is a short proof of optimality since we want it to be called "algorithm", not "heuristic".</p>
+</div>
+<div class="paragraph">
+<p>In essence what we are constructing is a bipartite graph.
+The algorithm never allows someone who owes to be paid, or someone who is owed to pay even more.
+Hence we can classify all nodes into those with leaving edges (payers) and those with entering edges (payee).</p>
+</div>
+<div class="paragraph">
+<p>In a bipartite graph the amount each person handles is minimized.
+To see why, we have to keep in mind that the algorithm always neutralizes one of the parties' balance.
+That is to say, we will not be left with the case where someone who could pay off all his debts "overpaying".
+In such a case, someone will then have to pay him back, which means it is no longer bipartite.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="time-and-space-complexity"><a class="link" href="#time-and-space-complexity">Time and Space complexity</a></h4>
+<div class="paragraph">
+<p>We take O(N^2) space and O(N) time.
+Updating of the balance sheet and matrices by the expense command is performed in O(1) time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-precision"><a class="link" href="#aspect-precision">Aspect: Precision</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Just use <code>double</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Easy, straightforward, good enough.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Floating point precision might stack up.</p>
+</li>
+<li>
+<p><strong>Reason for choice</strong>: For everyday purposes it is highly unlikely currencies (normally at most 2 decimal points) require any higher precision. This is for normal friends, not stockbrokers.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Implement a <code>Rational</code> class for rational numbers.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Guranteed precision.</p>
+</li>
+<li>
+<p>Cons: Seems overkill and needlessly over-engineered.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 00:47:28 UTC</div></div></div></body></html>
