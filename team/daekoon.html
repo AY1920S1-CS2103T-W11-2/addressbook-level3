@@ -1,0 +1,631 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Lim Daekoon - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">SplitWiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-W11-2/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Lim Daekoon - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-splitwiser"><a class="link" href="#project-splitwiser">PROJECT: Splitwiser</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For our Software Engineering project, my team, comprising of 5 students (including myself), was given the codebase for a command line desktop application called 'Address Book', where we were required to morph this given codebase into an application of our choice. We chose to morph this application into a group expense management app called 'SplitWiser'. This enhanced application enables people to simplify expense and debt tracking in group activities, so that people will know exactly how to split the bill at the end of the activity.</p>
+</div>
+<div class="paragraph">
+<p>Our product has the following main features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create, update and delete Contacts and Activities</p>
+</li>
+<li>
+<p>Add expenses to activities</p>
+</li>
+<li>
+<p>Add/remove participants from activities</p>
+</li>
+<li>
+<p>Automatic splitting of bills between participants</p>
+</li>
+<li>
+<p>Settle debts within an activity</p>
+</li>
+<li>
+<p>Auto-saving of all data</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is what our project looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui">
+</div>
+<div class="title">Figure 1. Sample screenshot of SplitWiser</div>
+</div>
+<div class="paragraph">
+<p>I was responsible for creating the activity class, and the entire infrastructure required to support it. It is the foundational feature of our product, as it stores all information necessary to handle bill splitting. This makes my role particularly crucial as all features related to bill splitting interacts with this class. Furthermore, I created the functionality to create activities, and updated the find functionality to search based on context. The following sections describe my contributions in greater depth, in addition to the documentation that I added pertaining to the aforementioned features.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.</p>
+</div>
+<div class="sect2">
+<h3 id="major-enhancements"><a class="link" href="#major-enhancements">Major Enhancements</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Activity Class</strong>: I created the <code>Activity</code> class and all its dependencies.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it is: Activity class stores all information for an activity, such as <code>Title</code>, <code>Participants</code>, and <code>Expenses</code>.</p>
+</li>
+<li>
+<p>Justification: This feature is the foundation of our product. Activities contain all necessary information necessary to handle bill splitting.</p>
+</li>
+<li>
+<p>Highlights: Activities stores the following information:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Title: Title of the activity. Compulsory field.</p>
+</li>
+<li>
+<p>Participants: Contacts that took part in this activity.</p>
+</li>
+<li>
+<p>Expenses: Expenses incurred by this activity.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Storage of Activity</strong>: I created the infrastructure that allows local storage of Activities.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it is: Activities can now be locally stored as a <code>ActivityBook.json</code> file. Activities can also be loaded from this file.</p>
+</li>
+<li>
+<p>Justification: Similar to how Contacts are stored locally, Activities should also be saved, so that it would not disappear when the application is closed. Without it, the program is unusable.</p>
+</li>
+<li>
+<p>Highlights: Activities are stored locally, and can be loaded anytime. Validations are executed on every load, preventing corrupted or invalid save files from being loaded.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Create Activity</strong>: I added the ability to create Activities.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: The <code>Activity</code> command allows the user to create new activity.</p>
+</li>
+<li>
+<p>Justification: This is the foundational feature of our product. Activities contain all necessary information needed to handle the splitting of bills, and we need to provide users the ability to create activities to make use of our product.</p>
+</li>
+<li>
+<p>Highlights: Activity command that allows users to create new activities. Users can specify the title of the activity, and can invite contacts into the activity as participants. In order to improve usability, contacts are first searched using exact-matching, and then keyword-based matching if no valid exact match is found.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Search functionality with context</strong>: I added the ability to search using context.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: The <code>find</code> command allows the user to search based on current context.</p>
+</li>
+<li>
+<p>Justification: This feature significantly increase the usability of our product. As time progresses, the application will have many contacts and activities, often similar in nature, therefore having the ability to find the activity you want among many different similar matches is invaluable.</p>
+</li>
+<li>
+<p>Highlights: Find command that searches based on the current context. When viewing a list of activities, find command searches for activity. When viewing a list of contacts, it searches for contacts instead. Uses keyword-based matching.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Improved gradle configuration to show test results (Pull Request <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/81">#81</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/191">#191</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentations:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added User guide for Activity Command</p>
+</li>
+<li>
+<p>Added section on Activity feature for Developer Guide</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reviewed Pull-Requests with non-trivial review comments: (Pull Request <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/122">#122</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80">#80</a> )</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-contributed"><a class="link" href="#code-contributed">Code contributed</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=daekoon&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=daekoon&amp;tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D">Contribution info</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="create-new-activity-code-activity-code"><a class="link" href="#create-new-activity-code-activity-code">Create new activity: <code>activity</code></a></h3>
+<div class="paragraph">
+<p>Creates a new activity with a title, contacts (optional) and no expenses.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Additional contacts can be added to the activity by using <code>p/</code> prefix.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initially, the application will search for contact with exact matching name.</p>
+</li>
+<li>
+<p>If no exact match is found, keyword matching is used instead. Refer to <a href="#finding-contacts-or-activities-code-find-code">Finding contacts or activities: <code>find</code></a> for more details.</p>
+</li>
+<li>
+<p>For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Changes the current view to this activity (as if <code>view a/ACTIVITY_ID</code> was called).</p>
+</li>
+<li>
+<p>Each activity will be automatically assigned an activity ID.<br></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>activity t/ACTIVITY_TITLE [p/PERSON &#8230;&#8203;]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activity t/Chalet p/John Doe</code><br>
+Creates a new activity with title 'Chalet' John Doe as participants.</p>
+</li>
+<li>
+<p><code>activity t/Breakfast p/David Li p/Bernice Yu</code><br>
+Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn&#8217;t exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="finding-contacts-or-activities-code-find-code"><a class="link" href="#finding-contacts-or-activities-code-find-code">Finding contacts or activities: <code>find</code></a></h3>
+<div class="paragraph">
+<p>Finds contacts or activities whose name or title respectively contain <strong>any</strong> of the given keywords.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find KEYWORD &#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Find command can only be used when viewing list of activities or contacts.</p>
+</li>
+<li>
+<p>Find command will search for activities if used under list activity view. If used under list contact view, the find command will search for contacts.</p>
+</li>
+<li>
+<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only the name of contacts and title of activities are searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
+</li>
+<li>
+<p>Contacts and activities matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find John</code><br>
+If currently viewing list of contacts, returns contacts (e.g. <code>john</code> and <code>John Doe</code>).
+If currently viewing list of activities, returns activities (e.g <code>lunch with john</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="activity-class"><a class="link" href="#activity-class">Activity class</a></h3>
+<div class="paragraph">
+<p><code>Activity</code> is a class used to store activities and their details. It contains the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Primary Key</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each <code>Activity</code> has a unique primary key used by external classes to identify and access them, without unnecessary dependencies.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Title</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Title of the activity is stored using <code>Title</code>, which runs validations to ensure that the title is valid. Currently, the only restriction for the title is that it can&#8217;t be blank.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Participants</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Participants are saved internally under <code>participantIds</code>, which only stores the primary key of <code>Person</code> involved.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Expenses incurred by this activity</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Expenses are stored as <code>Expense</code>. Refer to <a href="#Expense class">[Expense class]</a> for more details.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Outstanding balance for each participant</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The balance of each participants are stored internally under <code>participantBalances</code>.</p>
+</div>
+<div class="paragraph">
+<p>All <code>Activity</code> objects are stored in <code>ActivityBook</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following class diagram describes the implementation of <code>Activity</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ActivityClassDiagram.png" alt="ActivityClassDiagram">
+</div>
+<div class="title">Figure 2. Structure of the Activity class</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-storage-of-participants"><a class="link" href="#aspect-storage-of-participants">Aspect: Storage of participants</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Only storing the primary key of participants</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Minimizes dependency and potential bugs.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: More difficult for external classes to retrieve participant objects if necessary.</p>
+</li>
+<li>
+<p><strong>Reason for choice</strong>: Storing entire object can potentially cause bugs, as there are no mechanisms to ensure the consistency of data between <code>Person</code> object in <code>Activity</code> and <code>AddressBook</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Storing the entire <code>Person</code> object inside the <code>Activity</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Easier to implement. Object can be easily retrieved when necessary.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Creates extra dependency between classes. More prone to error.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-activity-feature"><a class="link" href="#create-activity-feature">Create activity feature</a></h3>
+<div class="paragraph">
+<p>Mechanism to create activity is facilitated by <code>Activity</code>.
+It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Activity()</code>&#8201;&#8212;&#8201;Constructor used to create a new <code>Activity</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All <code>Activity</code> models are stored inside <code>ActivityBook</code>.</p>
+</div>
+<div class="paragraph">
+<p>When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately using the invite command. Refer to <a href="#Invite/Disinvite feature">[Invite/Disinvite feature]</a> for more information.</p>
+</div>
+<div class="paragraph">
+<p>Adding of participant uses both exact-match and keyword-based search. First, the search term passed in is used to find an contact with an exact matching name. If no exact match is found, the search term is split into keywords via whitespace. Obtained keywords are then used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.</p>
+</div>
+<div class="paragraph">
+<p>The aforementioned mechanism was applied to minimize friction for users in using this feature. In early stages of development, it was concluded that making users type in the full name every time was seen as overly tedious. Making use of keyword-based search ensures that the users will only have to type in minimum amount of information to add a person.</p>
+</div>
+<div class="paragraph">
+<p>Exact matching is always used first to overcome a specific edge case where a contact could not be added, if its name was a substring of another contact&#8217;s name. Using exact-matching before applying keyword-based matching helps avoid this problem.</p>
+</div>
+<div class="paragraph">
+<p>Here is a sample use case in creating an expense:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The user executes <code>activity t/Breakfast p/David</code> command to create an activity named Breakfast in the activity book, with David as a participant.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user executes <code>activity t/Lunch p/Alex p/David</code> command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", this search term is considered invalid, and only David is added into the Lunch activity as a participant.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram demonstrates how creating activity works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CreateActivitySequenceDiagram.png" alt="CreateActivitySequenceDiagram">
+</div>
+<div class="title">Figure 3. Sequence diagram for creating an activity</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>ActivityCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following activity diagram encapsulates the high level logic of the create activity operation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CreateActivityActivityDiagram.png" alt="CreateActivityActivityDiagram">
+</div>
+<div class="title">Figure 4. Activity diagram for creating an activity</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram encapsulates the high level logic of finding the correct contact to add as participant, for each keyword supplied.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AddParticipantActivityDiagram.png" alt="AddParticipantActivityDiagram">
+</div>
+<div class="title">Figure 5. Activity diagram for searching contacts to add as participants</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-finding-the-correct-contact-to-add"><a class="link" href="#aspect-finding-the-correct-contact-to-add">Aspect: Finding the correct contact to add</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Users can use keywords to specify the contact to be added.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Improves usability.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Difficult to implement. Necessary to handle multiple edge cases.</p>
+</li>
+<li>
+<p><strong>Reason for choice</strong>: Forcing users to specify exact full name was deemed to be too tedious, especially when adding multiple participants.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Users must type in the exact full name of the contact to be added.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Easy to implement. Low possibility of bugs.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Significantly decreases usability of the application.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-feature"><a class="link" href="#find-feature">Find feature</a></h3>
+<div class="paragraph">
+<p>The find mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>Context</code> is an immutable utility class that describes the nature of the current view of the app. Refer to <a href="#List feature">[List feature]</a> for more information about <code>Context</code>.</p>
+</div>
+<div class="paragraph">
+<p>During execution, the Find command checks the current <code>Context</code> from <code>Model</code>. If the current context is <code>LIST_ACTIVITY</code>, the command will search for <code>Activity</code> using the supplied search terms. If the current context is <code>LIST_CONTACT</code>, the command will search for <code>Contacts</code> using the supplied search terms. Otherwise, the command is used on invalid context and will throw an error. If the command is executed in a valid context, it will update the <code>FilteredList</code> to contain only the matching results. As <code>MainWindow</code> tracks both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.</p>
+</div>
+<div class="paragraph">
+<p>The Find command uses keyword-based matching to search for the correct results. If any of the keywords in the search term matches the title/name of the activity/contact, it will be included in the search results.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario of a user intending to find a specific activity.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the <code>SplitWiser</code> application for the first time, which defaults to displaying the list of contacts.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes the command string <code>list a/</code> to prompt the app to display the full list of activities.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes the command string <code>find keven</code> to prompt the app to search for all activities that contains the word "keven" in the title.</p>
+</div>
+<div class="paragraph">
+<p>The following activity diagram encapsulates the high level logic of the find operation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FindCommandActivityDiagram.png" alt="FindCommandActivityDiagram">
+</div>
+<div class="title">Figure 6. Activity diagram for find command</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-specify-search-type-activity-contact"><a class="link" href="#aspect-how-to-specify-search-type-activity-contact">Aspect: How to specify search type (Activity/Contact)</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Rely on current context to decide which type of object to search for. Only works when in either of the list context.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: More intuitive for user, since the find command searches for the current type of object being viewed. Less typing is needed if user wants to continuously search in the same context.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Harder to implement, extra dependencies with <code>Context</code> class.</p>
+</li>
+<li>
+<p><strong>Reason for choice</strong>: Users are more likely to carry out multiple searches, especially when creating an Activity and searching for correct contacts to add.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Pass in an extra argument to specify what type of object one is looking for.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Easier to implement, reduced dependency.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Command gets less user-friendly and longer. Successive find command gets tedious to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 02:13:47 UTC</div></div></div></body></html>

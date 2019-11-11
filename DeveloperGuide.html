@@ -28,12 +28,13 @@
 <li><a href="#create-expense-feature">3.4. Create expense feature</a></li>
 <li><a href="#debt-simplification-algorithm">3.5. Debt simplification algorithm</a></li>
 <li><a href="#list-feature">3.6. List feature</a></li>
-<li><a href="#invite-disinvite-feature">3.7. Invite/Disinvite feature</a></li>
-<li><a href="#delete-feature">3.8. Delete feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.9. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.10. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.11. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.12. Configuration</a></li>
+<li><a href="#find-feature">3.7. Find feature</a></li>
+<li><a href="#invite-disinvite-feature">3.8. Invite/Disinvite feature</a></li>
+<li><a href="#delete-feature">3.9. Delete feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.10. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.11. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.12. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.13. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -147,13 +148,10 @@ The following class plays an important role at the architecture level:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it&#8217;s API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/LogicClassDiagram.png" alt="LogicClassDiagram">
-</div>
-<div class="title">Figure 2. Class Diagram of the Logic Component</div>
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it&#8217;s API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.
+ac
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[]</p>
 </div>
 <h4 id="how-the-architecture-components-interact-with-each-other" class="discrete">How the architecture components interact with each other</h4>
 <div class="paragraph">
@@ -163,7 +161,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/ArchitectureSequenceDiagram.png" alt="ArchitectureSequenceDiagram">
 </div>
-<div class="title">Figure 3. Component interactions for <code>delete 1</code> command</div>
+<div class="title">Figure 2. Component interactions for <code>delete 1</code> command</div>
 </div>
 <div class="paragraph">
 <p>The sections below give more details of each component.</p>
@@ -175,7 +173,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/UiClassDiagram.png" alt="UiClassDiagram">
 </div>
-<div class="title">Figure 4. Structure of the UI Component</div>
+<div class="title">Figure 3. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
@@ -206,7 +204,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/LogicClassDiagram.png" alt="LogicClassDiagram">
 </div>
-<div class="title">Figure 5. Structure of the Logic Component</div>
+<div class="title">Figure 4. Structure of the Logic Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
@@ -238,7 +236,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
 </div>
-<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 5. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -259,7 +257,7 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram">
 </div>
-<div class="title">Figure 7. Structure of the Model Component</div>
+<div class="title">Figure 6. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
@@ -334,7 +332,7 @@ Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;O
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram">
 </div>
-<div class="title">Figure 8. Structure of the Storage Component</div>
+<div class="title">Figure 7. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -410,7 +408,7 @@ Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;O
 </ul>
 </div>
 <div class="paragraph">
-<p>Expenses are stored as <code>Expense</code>. Refer to <a href="#Expense">[Expense]</a> for more details. (TBD)</p>
+<p>Expenses are stored as <code>Expense</code>. Refer to <a href="#expense-class">Section 3.3, &#8220;Expense class&#8221;</a> for more details.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -432,12 +430,12 @@ Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;O
 <div class="content">
 <img src="images/ActivityClassDiagram.png" alt="ActivityClassDiagram">
 </div>
-<div class="title">Figure 9. Structure of the Activity class</div>
+<div class="title">Figure 8. Structure of the Activity class</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.1. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-storage-of-participant"><a class="link" href="#aspect-storage-of-participant">Aspect: Storage of participant</a></h5>
+<h5 id="aspect-storage-of-participants"><a class="link" href="#aspect-storage-of-participants">Aspect: Storage of participants</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -461,10 +459,10 @@ Strictly speaking, <code>Context</code> only stores a single <code>Optional&lt;O
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easier to implement. Object can be easily retrieved when necessary.</p>
+<p><strong>Pros</strong>: Easier to implement. Object can be easily retrieved when necessary.</p>
 </li>
 <li>
-<p>Cons: Creates extra dependency between classes. More prone to error.</p>
+<p><strong>Cons</strong>: Creates extra dependency between classes. More prone to error.</p>
 </li>
 </ul>
 </div>
@@ -491,22 +489,67 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <p>All <code>Activity</code> models are stored inside <code>ActivityBook</code>.</p>
 </div>
 <div class="paragraph">
-<p>When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately.</p>
+<p>When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately using the invite command. Refer to <a href="#invite-disinvite-feature">Section 3.8, &#8220;Invite/Disinvite feature&#8221;</a> for more information.</p>
 </div>
 <div class="paragraph">
 <p>Adding of participant uses both exact-match and keyword-based search. First, the search term passed in is used to find an contact with an exact matching name. If no exact match is found, the search term is split into keywords via whitespace. Obtained keywords are then used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.</p>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the create activity mechanism behaves at each step.</p>
+<p>The aforementioned mechanism was applied to minimize friction for users in using this feature. In early stages of development, it was concluded that making users type in the full name every time was seen as overly tedious. Making use of keyword-based search ensures that the users will only have to type in minimum amount of information to add a person.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
+<p>Exact matching is always used first to overcome a specific edge case where a contact could not be added, if its name was a substring of another contact&#8217;s name. Using exact-matching before applying keyword-based matching helps avoid this problem.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>activity t/Breakfast p/David</code> command to create an activity named Breakfast in the activity book, with David as a participant.</p>
+<p>Here is a sample use case in creating an expense:</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>activity t/Lunch p/Alex p/David</code> command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", only David is added into the Lunch activity as a participant.</p>
+<p><strong>Step 1.</strong> The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The user executes <code>activity t/Breakfast p/David</code> command to create an activity named Breakfast in the activity book, with David as a participant.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user executes <code>activity t/Lunch p/Alex p/David</code> command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", this search term is considered invalid, and only David is added into the Lunch activity as a participant.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram demonstrates how creating activity works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CreateActivitySequenceDiagram.png" alt="CreateActivitySequenceDiagram">
+</div>
+<div class="title">Figure 9. Sequence diagram for creating an activity</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>ActivityCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following activity diagram encapsulates the high level logic of the create activity operation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CreateActivityActivityDiagram.png" alt="CreateActivityActivityDiagram">
+</div>
+<div class="title">Figure 10. Activity diagram for creating an activity</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram encapsulates the high level logic of finding the correct contact to add as participant, for each keyword supplied.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddParticipantActivityDiagram.png" alt="AddParticipantActivityDiagram">
+</div>
+<div class="title">Figure 11. Activity diagram for searching contacts to add as participants</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.1. Design Considerations</a></h4>
@@ -525,7 +568,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <p><strong>Cons</strong>: Difficult to implement. Necessary to handle multiple edge cases.</p>
 </li>
 <li>
-<p><strong>Reason for choice</strong>: Forcing users to specify exact full name was deemed to be too tedious.</p>
+<p><strong>Reason for choice</strong>: Forcing users to specify exact full name was deemed to be too tedious, especially when adding multiple participants.</p>
 </li>
 </ul>
 </div>
@@ -535,10 +578,10 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement. Low possibility of bugs.</p>
+<p><strong>Pros</strong>: Easy to implement. Low possibility of bugs.</p>
 </li>
 <li>
-<p>Cons: Significantly decreases usability of the application.</p>
+<p><strong>Cons</strong>: Significantly decreases usability of the application.</p>
 </li>
 </ul>
 </div>
@@ -620,7 +663,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <div class="content">
 <img src="images/ExpenseClassDiagram.png" alt="ExpenseClassDiagram">
 </div>
-<div class="title">Figure 10. Structure of the Expense class</div>
+<div class="title">Figure 12. Structure of the Expense class</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.1. Design considerations</a></h4>
@@ -731,7 +774,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <div class="content">
 <img src="images/ExpenseSequenceDiagram.png" alt="ExpenseSequenceDiagram">
 </div>
-<div class="title">Figure 11. Sequence diagram for adding an expense</div>
+<div class="title">Figure 13. Sequence diagram for adding an expense</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -752,7 +795,7 @@ The lifeline for <code>ExpenseCommand</code> should end at the destroy marker (X
 <div class="content">
 <img src="images/ExpenseActivityDiagram.png" alt="ExpenseActivityDiagram">
 </div>
-<div class="title">Figure 12. Activity diagram for adding an expense</div>
+<div class="title">Figure 14. Activity diagram for adding an expense</div>
 </div>
 </div>
 <div class="sect2">
@@ -846,10 +889,10 @@ Updating of the balance sheet and matrices by the expense command is performed i
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Guranteed precision.</p>
+<p><strong>Pros</strong>: Guranteed precision.</p>
 </li>
 <li>
-<p>Cons: Seems overkill and needlessly over-engineered.</p>
+<p><strong>Cons</strong>: Seems overkill and needlessly over-engineered.</p>
 </li>
 </ul>
 </div>
@@ -941,9 +984,84 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.7. Invite/Disinvite feature</a></h3>
+<h3 id="find-feature"><a class="link" href="#find-feature">3.7. Find feature</a></h3>
+<div class="paragraph">
+<p>The find mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>Context</code> is an immutable utility class that describes the nature of the current view of the app. Refer to <a href="#list-feature">Section 3.6, &#8220;List feature&#8221;</a> for more information about <code>Context</code>.</p>
+</div>
+<div class="paragraph">
+<p>During execution, the Find command checks the current <code>Context</code> from <code>Model</code>. If the current context is <code>LIST_ACTIVITY</code>, the command will search for <code>Activity</code> using the supplied search terms. If the current context is <code>LIST_CONTACT</code>, the command will search for <code>Contacts</code> using the supplied search terms. Otherwise, the command is used on invalid context and will throw an error. If the command is executed in a valid context, it will update the <code>FilteredList</code> to contain only the matching results. As <code>MainWindow</code> tracks both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.</p>
+</div>
+<div class="paragraph">
+<p>The Find command uses keyword-based matching to search for the correct results. If any of the keywords in the search term matches the title/name of the activity/contact, it will be included in the search results.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario of a user intending to find a specific activity.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the <code>SplitWiser</code> application for the first time, which defaults to displaying the list of contacts.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes the command string <code>list a/</code> to prompt the app to display the full list of activities.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes the command string <code>find keven</code> to prompt the app to search for all activities that contains the word "keven" in the title.</p>
+</div>
+<div class="paragraph">
+<p>The following activity diagram encapsulates the high level logic of the find operation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/FindCommandActivityDiagram.png" alt="FindCommandActivityDiagram">
+</div>
+<div class="title">Figure 15. Activity diagram for find command</div>
+</div>
 <div class="sect3">
-<h4 id="implementation-2"><a class="link" href="#implementation-2">3.7.1. Implementation</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.1. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-specify-search-type-activity-contact"><a class="link" href="#aspect-how-to-specify-search-type-activity-contact">Aspect: How to specify search type (Activity/Contact)</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Rely on current context to decide which type of object to search for. Only works when in either of the list context.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: More intuitive for user, since the find command searches for the current type of object being viewed. Less typing is needed if user wants to continuously search in the same context.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Harder to implement, extra dependencies with <code>Context</code> class.</p>
+</li>
+<li>
+<p><strong>Reason for choice</strong>: Users are more likely to carry out multiple searches, especially when creating an Activity and searching for correct contacts to add.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Pass in an extra argument to specify what type of object one is looking for.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros</strong>: Easier to implement, reduced dependency.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Command gets less user-friendly and longer. Successive find command gets tedious to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="invite-disinvite-feature"><a class="link" href="#invite-disinvite-feature">3.8. Invite/Disinvite feature</a></h3>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.8.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The invite/disinvite mechanism is facilitated by <code>Activity</code>.
 It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored internally as an <code>activityList</code>. Additionally, it implements the following operations:</p>
@@ -1033,7 +1151,7 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.8.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-invite-disinvite-executes"><a class="link" href="#aspect-how-invite-disinvite-executes">Aspect: How invite &amp; disinvite executes</a></h5>
 <div class="ulist">
@@ -1056,10 +1174,10 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement.</p>
+<p><strong>Pros</strong>: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.</p>
+<p><strong>Cons</strong>: Have to keep retyping activity number if multiple invites/disinvites are needed.</p>
 </li>
 </ul>
 </div>
@@ -1089,10 +1207,10 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.</p>
+<p><strong>Pros</strong>: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.</p>
 </li>
 <li>
-<p>Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.</p>
+<p><strong>Cons</strong>: Might create duplicate person object when reading from multiple json files if not implemented properly.</p>
 </li>
 </ul>
 </div>
@@ -1103,9 +1221,9 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-feature"><a class="link" href="#delete-feature">3.8. Delete feature</a></h3>
+<h3 id="delete-feature"><a class="link" href="#delete-feature">3.9. Delete feature</a></h3>
 <div class="sect3">
-<h4 id="implementation-3"><a class="link" href="#implementation-3">3.8.1. Implementation</a></h4>
+<h4 id="implementation-3"><a class="link" href="#implementation-3">3.9.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The delete mechanism is facilitated by <code>AddressBook</code>, <code>ActivityBook</code>, as well as <code>Activity</code>.<br>
 The items that will be deleted can be contact/activity/expense depending on your current display.</p>
@@ -1156,7 +1274,7 @@ The activity diagram for deletion of expense and contact are omitted as they are
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.9.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-delete-executes"><a class="link" href="#aspect-how-delete-executes">Aspect: How delete executes</a></h5>
 <div class="ulist">
@@ -1166,10 +1284,10 @@ The activity diagram for deletion of expense and contact are omitted as they are
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: More user-friendly. Users do not have to keep specifying what to delete.</p>
+<p><strong>Pros</strong>: More user-friendly. Users do not have to keep specifying what to delete.</p>
 </li>
 <li>
-<p>Cons: Harder to implement.</p>
+<p><strong>Cons</strong>: Harder to implement.</p>
 </li>
 </ul>
 </div>
@@ -1179,10 +1297,10 @@ The activity diagram for deletion of expense and contact are omitted as they are
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement.</p>
+<p><strong>Pros</strong>: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: Have to keep retyping the field for deletion which is inconvenient.</p>
+<p><strong>Cons</strong>: Have to keep retyping the field for deletion which is inconvenient.</p>
 </li>
 </ul>
 </div>
@@ -1193,9 +1311,9 @@ The activity diagram for deletion of expense and contact are omitted as they are
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.9. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.10. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.9.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.10.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -1337,7 +1455,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.9.2. Design Considerations</a></h4>
+<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.10.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -1407,20 +1525,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.10. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.11. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.11. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.12. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.12, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.13, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1451,7 +1569,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.12. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.13. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2068,4 +2186,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 01:27:01 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 02:13:47 UTC</div></div></div></body></html>
