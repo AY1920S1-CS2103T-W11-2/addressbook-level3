@@ -1083,7 +1083,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <p>Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
+<p>Step 1. The user launches the application for the first time. <code>SplitWiser</code> will be initialized with the initial address book and activity book state.</p>
 </div>
 <div class="paragraph">
 <p>Step 2. The user executes <code>activity t/breakfast p/David</code> command to create an activity named breakfast with <code>David</code> as the sole participant which is stored in the <code>activityList</code>.</p>
@@ -1112,7 +1112,7 @@ The lifeline for <code>InviteCommand</code> should end at the destroy marker (X)
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Hence the user decides to remove that person by executing the <code>disinvite</code> command.</p>
+<p>Step 4. The user decides that inviting some contacts was a mistake or they has not been involved in any of the expenses in the activity. Hence the user decides to remove them from the activity by executing the <code>disinvite</code> command.</p>
 </div>
 <div class="paragraph">
 <p>Step 5. The user executes <code>disinvite p/Louis p/David &#8230;&#8203;</code> to remove participant(s) from the current activity. The <code>disinvite</code> command calls <code>Activity#disinvite()</code> which then modifies the <code>activityList</code> and is stored in the <code>ActivityBook</code>.</p>
@@ -1161,7 +1161,7 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: More user-friendly. Users do not have to keep specifying which activity to invite the participants to each time an invite command is made.</p>
+<p>Pros: More user-friendly. User does not have to keep specifying which activity to invite the participants to each time an invite command is made.</p>
 </li>
 <li>
 <p>Cons: Harder to implement. Have to consider which activity to invite the participants to based on the current viewed activity.</p>
@@ -1190,14 +1190,14 @@ The activity diagram for the disinvite command is omitted as it is similar to th
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the participants' ID in the activity instead of participants.</p>
+<p><strong>Alternative 1 (current choice):</strong> Use a list to store the participant&#8217;s ID in the activity instead of participant&#8217;s name.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
 </li>
 <li>
-<p>Cons: Have to find particular participant that matches the ID specified.</p>
+<p>Cons: Have to map participant&#8217;s ID to participant&#8217;s name. Hard to search for participant&#8217;s specific ID when given name.</p>
 </li>
 </ul>
 </div>
@@ -1238,7 +1238,7 @@ The items that will be deleted can be contact/activity/expense depending on your
 <p>Step 2. The user executes <code>list c/</code> command to display list contacts screen.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>delete 1</code> to delete the contact at the first index if he/she is not involved in any activities.</p>
+<p>Step 3. The user executes <code>delete 1</code> to delete the contact at the first index, he/she will be deleted if he/she is not involved in any activity.</p>
 </div>
 <div class="paragraph">
 <p>Step 4. The user executes <code>list a/</code> to display list activities screen.</p>
@@ -1284,10 +1284,10 @@ The activity diagram for deletion of expense and contact are omitted as they are
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Pros</strong>: More user-friendly. Users do not have to keep specifying what to delete.</p>
+<p>Pros: More user-friendly. User does not have to keep specifying what field to delete.</p>
 </li>
 <li>
-<p><strong>Cons</strong>: Harder to implement.</p>
+<p>Cons: Harder to implement.</p>
 </li>
 </ul>
 </div>
@@ -2186,4 +2186,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 03:18:23 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:36:34 UTC</div></div></div></body></html>
