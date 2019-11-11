@@ -45,7 +45,7 @@
 <li><a href="#use-cases">Appendix C: Use Cases</a></li>
 <li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
 <li><a href="#glossary">Appendix E: Glossary</a></li>
-<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#limitations-of-code-double-code">Appendix F: Limitations of <code>double</code></a></li>
 <li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
@@ -624,7 +624,7 @@ The lifeline for <code>ActivityCommand</code> should end at the destroy marker (
 </ul>
 </div>
 <div class="paragraph">
-<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and must be non-negative.</p>
+<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and must be non-negative. Refer to <a href="#limitations-of-code-double-code">Appendix F, <em>Limitations of <code>double</code></em></a> for a more in depth analysis the numerical errors that may arise due to the limitations of this representation.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -793,7 +793,7 @@ The lifeline for <code>ExpenseCommand</code> should end at the destroy marker (X
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ExpenseActivityDiagram.png" alt="ExpenseActivityDiagram">
+<img src="images/ExpenseActivityDiagram.png" alt="0" width="380">
 </div>
 <div class="title">Figure 14. Activity diagram for adding an expense</div>
 </div>
@@ -2041,39 +2041,22 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
+<h2 id="limitations-of-code-double-code"><a class="link" href="#limitations-of-code-double-code">Appendix F: Limitations of <code>double</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Product Name</strong></p>
+<p>It is important to note that SplitWiser in its current iteration uses <code>double</code> to represent expense amounts and debt values. While we maintain that this choice is sufficient for the intended uses of SplitWiser (i.e. to simplify debt calculations among friends), it is nonetheless essential as the developer to be aware of the issues that can arise with using such a representation.</p>
 </div>
 <div class="paragraph">
-<p>Author: &#8230;&#8203;</p>
+<p>Java uses the double precision 64-bit IEEE 754 floating point format to represent doubles, which internally comprises 1 sign bit, 11 exponent bits and 52 mantissa bits. The finite digit nature of the mantissa consequently results in potential loss of precision when attempting to add or subtract numbers which have a wide range in magnitude. One example is as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/NumericalError.png" alt="NumericalError">
+</div>
+<div class="title">Figure 16. Example activity</div>
 </div>
 <div class="paragraph">
-<p>Pros:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Cons:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
+<p>Here, if Alex attempts to settle the debt with David using <code>settle p/alex p/david</code>, the debt re-calculations will result the debt still being non-zero. In fact, if the user attempts executes another <code>settle p/alex p/david</code>, the debt still remains!</p>
 </div>
 </div>
 </div>
@@ -2186,4 +2169,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 11:22:25 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 13:35:22 UTC</div></div></div></body></html>

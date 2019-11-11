@@ -62,7 +62,7 @@
 </div>
 </li>
 <li>
-<p><strong>Code contributed</strong>: <a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liakify&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false">Link to tP dashboard</a></p>
+<p><strong>Code contributed</strong>: <a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liakify&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=liakify&amp;tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D">Link to tP dashboard</a></p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -117,7 +117,7 @@
 <div class="sect2">
 <h3 id="add-expenses-to-an-activity-code-expense-code"><a class="link" href="#add-expenses-to-an-activity-code-expense-code">Add expenses to an activity : <code>expense</code></a></h3>
 <div class="paragraph">
-<p>Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored.<br></p>
+<p>This command creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored.<br></p>
 </div>
 <div class="paragraph">
 <p>If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money.<br></p>
@@ -148,16 +148,30 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>expense p/John Doe e/100</code><br>
-Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe John a portion of the $100.<br>
-If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense.</p>
-</li>
-<li>
-<p><code>expense p/Mary e/100 p/Joseph p/Silva d/Drinks</code><br>
-Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named <code>Drinks</code>. If any one of the participants are not in the present activity, then an error will occur and no expense will be created.<br>
-Alternatively, if no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.</p>
+<p><code>expense p/David Lim e/100</code><br>
+Adds a single expense of $100 by David Lim to the currently viewed activity. If David is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe David a portion of the $100 (left image).<br>
+If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense (right image):</p>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Expense1.png" alt="Expense1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>expense p/David e/100 p/Bernice p/Irfan d/Drinks</code><br>
+Adds an expense of $100 to the currently viewed activity by David where Bernice and Irfan are involved i.e. Bernice and Irfan owe David a portion of the $100. This expense will be named <code>Drinks</code> (left image). If any one of the participants are not in the present activity, then an error will occur and no expense will be created.<br>
+Alternatively, if no activity is currently viewed, an activity titled <code>Drinks</code> will be created to contain this expense. David, Bernice and Irfan will then be added to the activity (right image):</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Expense2.png" alt="Expense2">
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -178,7 +192,7 @@ This adds an expense of $15 by John Doe called <code>Cab</code> where only John 
 <div class="sect2">
 <h3 id="edit-an-existing-contact-or-activity-code-edit-code"><a class="link" href="#edit-an-existing-contact-or-activity-code-edit-code">Edit an existing contact or activity : <code>edit</code></a></h3>
 <div class="paragraph">
-<p>Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed.<br></p>
+<p>This command edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed.<br></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG &#8230;&#8203;]</code> for contacts OR <code>edit [t/ACTIVITY_TITLE]</code> for activities.</p>
@@ -212,11 +226,25 @@ This adds an expense of $15 by John Doe called <code>Cab</code> where only John 
 <p><code>edit p/999</code><br>
 Edits the phone number of the current contact in view to <code>999</code>. No changes are made if a contact is not being viewed.</p>
 </li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Edit1.png" alt="Edit1">
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p><code>edit t/BBQ</code><br>
-Edits the title of the current activity in view to <code>BBQ</code>. No changes are made if an activity is not being viewed.</p>
+<p><code>edit t/Lunch</code><br>
+Edits the title of the current activity in view to <code>Lunch</code>. No changes are made if an activity is not being viewed.</p>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Edit2.png" alt="Edit2">
+</div>
 </div>
 <hr>
 </div>
@@ -291,7 +319,7 @@ Edits the title of the current activity in view to <code>BBQ</code>. No changes 
 </ul>
 </div>
 <div class="paragraph">
-<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and must be non-negative.</p>
+<p>The amount of money spent. The value of an <code>Amount</code> is stored as a <code>double</code>, and must be non-negative. Refer to <a href="#limitations-of-code-double-code">Limitations of <code>double</code></a> for a more in depth analysis the numerical errors that may arise due to the limitations of this representation.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -461,10 +489,31 @@ The lifeline for <code>ExpenseCommand</code> should end at the destroy marker (X
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/ExpenseActivityDiagram.png" alt="ExpenseActivityDiagram">
+<img src="../images/ExpenseActivityDiagram.png" alt="0" width="380">
 </div>
 <div class="title">Figure 3. Activity diagram for adding an expense</div>
 </div>
+<hr>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 11:22:25 UTC</div></div></div></body></html>
+</div>
+<div class="sect1">
+<h2 id="limitations-of-code-double-code"><a class="link" href="#limitations-of-code-double-code">Appendix A: Limitations of <code>double</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is important to note that SplitWiser in its current iteration uses <code>double</code> to represent expense amounts and debt values. While we maintain that this choice is sufficient for the intended uses of SplitWiser (i.e. to simplify debt calculations among friends), it is nonetheless essential as the developer to be aware of the issues that can arise with using such a representation.</p>
+</div>
+<div class="paragraph">
+<p>Java uses the double precision 64-bit IEEE 754 floating point format to represent doubles, which internally comprises 1 sign bit, 11 exponent bits and 52 mantissa bits. The finite digit nature of the mantissa consequently results in potential loss of precision when attempting to add or subtract numbers which have a wide range in magnitude. One example is as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NumericalError.png" alt="NumericalError">
+</div>
+<div class="title">Figure 4. Example activity</div>
+</div>
+<div class="paragraph">
+<p>Here, if Alex attempts to settle the debt with David using <code>settle p/alex p/david</code>, the debt re-calculations will result the debt still being non-zero. In fact, if the user attempts executes another <code>settle p/alex p/david</code>, the debt still remains!</p>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 13:35:22 UTC</div></div></div></body></html>
