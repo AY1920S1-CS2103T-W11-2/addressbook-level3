@@ -1,0 +1,567 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Keven Loo - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">SplitWiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-W11-2/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Keven Loo - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-splitwiser"><a class="link" href="#project-splitwiser">PROJECT: SplitWiser</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For our Software Engineering module, we were tasked to morph a base <em>Address Book 3</em> (AB3) application into a product we envisioned for a specific target audience.</p>
+</div>
+<div class="paragraph">
+<p>Our team decided to work on <strong>SplitWiser</strong>, a desktop Java applet to simplify expense tracking and bill-splitting amongst friends in group activities.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="600">
+</div>
+<div class="title">Figure 1. Screenshots of <strong>SplitWiser</strong> app</div>
+</div>
+<div class="paragraph">
+<p><strong>SplitWiser</strong> allows users to manage their contacts and activities centrally, and is primarily designed for fast typists in mind. The app employs a familiar command-line interface (CLI) for input reminiscent of terminal shells, and provides feedback to the user via a Graphical User Interface (GUI) designed with JavaFX.</p>
+</div>
+<div class="paragraph">
+<p>My primary responsibility was to design and implement all GUI-related commands, with the requisite GUI components and styles. This role is particularly crucial, since the GUI bridges the gap between the inner workings of the app and what is seen by the end-user. As a cohesive and responsive GUI is critical to the the user experience (UX) of the app, my work heavily builds upon the GUI provided by AB3.</p>
+</div>
+<div class="paragraph">
+<p>The following sections detail my contributions in greater depth, alongside the documentation I have written for my enhancements.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="major-enhancements"><a class="link" href="#major-enhancements">Major enhancements</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Reworked List command</strong> (PR <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/112">#112</a>): Added the ability to view a list of contacts or activities.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>: The <code>list</code> command was reworked to allow the user to specify either the list of tracked contacts or activities for the app to display.</p>
+</li>
+<li>
+<p><strong>Justification</strong>: This feature supports the centralised management of both contacts and activities, as the lists show a high-level overview of each entry. This allows users to use the <code>view</code> command in tandem to display full details of an entry, and enables certain contextual commands (<code>find</code> and <code>delete</code>) to behave differently depending on which list the user is currently viewing.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>: The <code>list</code> command can be used from any context. However, its implementation was challenging due to the high level of coordination between multiple components of the app (UI, Model and Logic), since all these components must share a consistent view of the current context.</p>
+</li>
+<li>
+<p><strong>Credits</strong>: to fellow team member <em>Lee Liak Ghee</em> for implementing our initial design for a <code>Context</code> class to represent the active state of the app.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>View command</strong> (PRs <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/124">#124</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/205">#205</a>): Added the ability to view details of a particular contact or activity.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>: The <code>view</code> command allows the user to bring up the details panel for a specified entry (activity or contact) in the currently viewed list.</p>
+</li>
+<li>
+<p><strong>Justification</strong>: Due to the limited size of the list entries, the full information of each contact or activity is only displayed in the respective details panel. This reduces visual clutter in the list view and provides additional freedom to customise each details panel separately. It also enables many contextual commands (<code>expense</code>, <code>invite</code>, <code>disinvite</code>, <code>settle</code>, <code>edit</code> and <code>delete</code>), which function based on the currently viewed entry. This eliminates the need to manually input the entry each command operates on, reducing the amount of typing and thus improving the UX.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>: The details panel displayed by the <code>view</code> command also provides the user with these additional features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Contact details panel: shows the activity history of the contact and the aggregate amount owed for each</p>
+</li>
+<li>
+<p>Activity details panel: shows the total expenditure in an activity</p>
+</li>
+<li>
+<p>Activity details panel: greys out soft-deleted expenses and settlements</p>
+</li>
+<li>
+<p>Activity details panel: shows required transfers to clear all debt within the activity</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="minor-enhancements"><a class="link" href="#minor-enhancements">Minor enhancements</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GUI redesign</strong> (PRs <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/86">#86</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/124">#124</a>): Redesigned the entire GUI to align with our <code>v2.0</code> vision of the app.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>: The GUI was redesigned around a single-panel interface with a light theme, shared by different UI components. New UI classes were introduced as required and the stylesheets were re-organised.</p>
+</li>
+<li>
+<p><strong>Justification</strong>: This enhancement improves the cohesiveness of the GUI across different operating systems (OS), and ensures it is responsive to user commands.</p>
+</li>
+<li>
+<p><strong>Highlights</strong>: Ensuring the GUI appears visually similar across different OSes was technically challenging, due to the poor documentation of the JavaFX CSS and FXML standard. This enhancement required a significant amount of manual user testing on different OSes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Improved status bar</strong> (PR <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/206">#206</a>): Reworked the status bar to be more useful to users.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it does</strong>: Upon initial app launch, the status bar will display the file path to the data file. After that, the status bar will instead describe the current application context.</p>
+</li>
+<li>
+<p><strong>Justification</strong>: By displaying the current context, this improves the UX by minimising the chance a user enters a command that is not defined for the current context.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Set up the <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/projects/1">automated kanban board</a> for the project</p>
+</li>
+<li>
+<p>Add Git pre-commit and pre-push hooks to automate workflow and minimise build failures on <a href="https://travis-ci.org/AY1920S1-CS2103T-W11-2/main">Travis</a>: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/87">#87</a></p>
+</li>
+<li>
+<p>Managed the three releases <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/releases/tag/v1.2"><code>v1.2</code></a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/releases/tag/v1.3"><code>v1.3</code></a> and <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/releases/tag/v1.3.1"><code>v1.3.1</code></a> (interim version for mock PE) on GitHub</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Designed and iterated the mockups for the <code>v2.0</code> version of SplitWiser for the User Guide and Developer Guide (DG): <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/41">#41</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/42">#42</a></p>
+</li>
+<li>
+<p>Updated UML diagrams in the DG: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/116">#116</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/209">#209</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Major feature PRs reviewed: <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53">#53</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/90">#90</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98">#98</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/129">#129</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/137">#137</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/162">#162</a>, <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/191">#191</a></p>
+</li>
+<li>
+<p>Bug fixes for <code>InternalState</code> during app initialisation (PR <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/117">#117</a>) and integration of <code>invite</code> command (PR <a href="https://github.com/AY1920S1-CS2103T-W11-2/main/pull/143">#143</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-contribution"><a class="link" href="#code-contribution">Code contribution</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>My code contribution and relevant statistics may be viewed at <a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aulud&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=true">Reposense</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="limitations"><a class="link" href="#limitations">Limitations</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="application-window-size"><a class="link" href="#application-window-size">Application window size</a></h3>
+<div class="paragraph">
+<p>For improved compatibility across different operating systems, the application window size is locked and not resizable by the user.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="floating-point-rounding"><a class="link" href="#floating-point-rounding">Floating-point rounding</a></h3>
+<div class="paragraph">
+<p>Amounts smaller than $0.01 are not displayed to full precision. Instead, SplitWiser indicates that the amount is &lt;$0.01.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">Viewing help : <code>help</code></a></h3>
+<div class="paragraph">
+<p>Brings up the help dialog.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-all-contacts-or-activities-code-list-code"><a class="link" href="#list-all-contacts-or-activities-code-list-code">List all contacts or activities : <code>list</code></a></h3>
+<div class="paragraph">
+<p>Switches the current view to list either all contacts or activities.<br></p>
+</div>
+<div class="paragraph">
+<p>The following screenshot displays the appearance of the list of contacts and activities respectively.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListComparison.png" alt="ListComparison" width="600">
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Argument values supplied with parameters are ignored for this command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>list c/</code> for contacts <strong>OR</strong> <code>list a/</code> for activities</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-a-contact-or-activity-code-view-code"><a class="link" href="#view-a-contact-or-activity-code-view-code">View a contact or activity : <code>view</code></a></h3>
+<div class="paragraph">
+<p>Switches the current view to show details of a contact or activity based on their display index in the current/last viewed list.<br></p>
+</div>
+<div class="paragraph">
+<p>The following screenshot displays the details panel for a contact and activity respectively.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ViewComparison.png" alt="ViewComparison" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>view a/ACTIVITY_ID</code> <strong>OR</strong> <code>view c/CONTACT_ID</code><br></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>view a/1</code><br>
+Views the details of the first activity, if the activity list was last displaying one or more activities</p>
+</li>
+<li>
+<p><code>view c/2</code><br>
+Views the details of the second contact, if the contact list was last displaying at least two contacts</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong"><a class="link" href="#assign-an-activity-as-a-sub-activity-code-assign-code-strong-v2-0-only-strong">Assign an activity as a sub-activity: <code>assign</code> (<strong>v2.0 only</strong>)</a></h3>
+<div class="paragraph">
+<p>Assigns a specified activity by display index as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or the specified index does not correspond to an activity in the list of activities, no change is made.</p>
+</div>
+<div class="paragraph">
+<p>Multiple activities can be assigned at once.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>assign a/ACTIVITY_ID &#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>assign 3 5</code>
+If viewing an activity with title 'Family trip', assigns the activities with display indices 3 and 5 as sub-activities of 'Family trip', if the list of activities contain at least five activities.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Design-Ui"><a class="link" href="#Design-Ui">UI component</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UiClassDiagram.png" alt="UiClassDiagram">
+</div>
+<div class="title">Figure 2. Structure of the UI Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="{repoURL}/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The UI consists of a <code>MainWindow</code> class that comprises parts from two categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Common parts</em> that are displayed regardless of the current application context, e.g. <code>CommandBox</code>, <code>ResultDisplay</code>,<code>StatusBarFooter</code> etc.</p>
+</li>
+<li>
+<p><em>Contextual parts</em> that are only displayed in the respective application context, e.g. <code>ActivityListPanel</code>, <code>PersonDetailsPanel</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All of these UI classes, including <code>MainWindow</code> itself, inherit from the abstract <code>UiPart</code> class. The <em>common</em> UI classes are shown above <code>MainWindow</code> in the above class diagram, whereas the <em>contextual</em> UI classes are shown below <code>MainWindow</code>.</p>
+</div>
+<div class="paragraph">
+<p>All UI classes are built upon the JavaFX GUI framework. The structure of each UI part <code>X</code> is defined in a matching <code>X.fxml</code> file in the folder <code>src/main/resources/view</code>. For example, the layout of the <a href="{repoURL}/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="{repoURL}/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>To create a visually cohesive and pleasant GUI, custom CSS styling rules were also employed to style each UI part individually. These stylesheets may be found as <code>.css</code> files in the folder <code>src/main/resources/view`</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>UI</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Executes user commands using the <code>Logic</code> component.</p>
+</li>
+<li>
+<p>Listens for some changes to <code>Model</code> data so that relevant UI parts may be re-rendered with the modified data.</p>
+</li>
+<li>
+<p>Parses the returned <code>CommandResult</code> to perform appropriate additional actions, such as exiting the application or switching the contextual part being displayed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The behaviour of the <code>MainWindow</code> part is further detailed in <a href="#gui-commands-list-and-view-features">GUI commands: List and View features</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gui-commands-list-and-view-features"><a class="link" href="#gui-commands-list-and-view-features">GUI commands: List and View features</a></h3>
+<div class="sect3">
+<h4 id="introduction"><a class="link" href="#introduction">Introduction</a></h4>
+<div class="paragraph">
+<p>To reduce the amount of typing required of the user, it was decided that the app would support <em>contextual commands</em> that operate differently based on the data the user was currently viewing.</p>
+</div>
+<div class="paragraph">
+<p>The List and View commands (collectively, <em>GUI commands</em>) were thus introduced to enable the user to switch between different views (panels) of the app, of which there are four:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contact list (<code>PersonListPanel</code>) - displays brief information (e.g. name, mobile number) of every tracked contact</p>
+</li>
+<li>
+<p>Activity list (<code>ActivityListPanel</code>) - displays brief information (e.g. title) of every tracked activity</p>
+</li>
+<li>
+<p>Contact details (<code>PersonDetailsPanel</code>) - displays full details of a specific contact, including that contact&#8217;s activity history</p>
+</li>
+<li>
+<p>Activity details (<code>ActivityDetailsPanel</code>) - displays full details of a specific activity, including all expenses, settlements and required transfers</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These mechanism of GUI commands is facilitated by a combination of three classes, <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="context-class"><a class="link" href="#context-class">Context class</a></h4>
+<div class="paragraph">
+<p><code>Context</code> is an immutable utility class introduced to describe the nature of the current view of the app. It stores state information about the current <code>ContextType</code> and an optional <code>Object</code> of interest, and is essential for the UI, Model and Logic components to maintain a consistent</p>
+</div>
+<div class="paragraph">
+<p>A <code>Context</code> may be instantiated in one of three ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>invoking the factory method <code>newListContactContext</code> or <code>newListContactContext</code>, which creates a new <code>Context</code> of type <code>LIST_ACTIVITY</code> or <code>LIST_CONTACT</code> respectively</p>
+</li>
+<li>
+<p>invoking the constructor with an <code>Activity</code>, which creates a new <code>Context</code> of type <code>VIEW_ACTIVITY</code> with that activity</p>
+</li>
+<li>
+<p>invoking the constructor with a <code>Person</code>, which creates a new <code>Context</code> of type <code>VIEW_CONTACT</code> with that contact</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ContextClassDiagram.png" alt="ContextClassDiagram" width="400">
+</div>
+<div class="title">Figure 3. Class diagram of <code>Context</code> class and <code>ContextType</code> enum</div>
+</div>
+<div class="paragraph">
+<p>The <code>Context</code> class exposes relevant getter methods <code>Context#getType</code>, <code>Context#getActivity</code> and <code>Context#getContact</code>. This enables contextual commands and the UI to retrieve the <code>Activity</code> or <code>Person</code> of interest, thus supporting contextual behaviour of the UI and other commands.</p>
+</div>
+<div class="paragraph">
+<p>During the execution of any command that changes the active view of the app, a new <code>Context</code> is created, with the relevant <code>Activity</code> or <code>Person</code>, if any. The command then updates the <code>Model</code> with the method <code>Model#setContext</code>.</p>
+</div>
+<div class="paragraph">
+<p>The updated <code>Context</code> of the <code>Model</code> is then wrapped as part of the <code>CommandResult</code> and returned to the <code>MainWindow</code>, which prompts the UI to perform additional actions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ui-context-switching"><a class="link" href="#ui-context-switching">UI context switching</a></h4>
+<div class="paragraph">
+<p>After executing a command successfully, the <code>MainWindow</code> receives a <code>CommandResult</code>, which it uses to determine if any additional actions need to be performed.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>CommandResult</code> contains a <code>Context</code>, then <code>MainWindow</code> switches the currently displayed panel out for the appropriate panel specified by the <code>ContextType</code>. The following activity diagram encapsulates the additional actions that may be performed as a result of <code>MainWindow</code> parsing the <code>CommandResult</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ContextSwitchActivityDiagram.png" alt="ContextSwitchActivityDiagram">
+</div>
+<div class="title">Figure 4. Activity diagram for UI after successful command execution</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-feature"><a class="link" href="#list-feature">List feature</a></h4>
+<div class="paragraph">
+<p>During execution, the List command creates the specified <code>Context</code> (either of type <code>LIST_ACTIVITY</code> or <code>LIST_CONTACT</code>). It then updates the <code>Model</code> with the new <code>Context</code>, alongside the <code>FilteredList</code> of <code>Activity</code> or <code>Person</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>As <code>MainWindow</code> observes both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes. The updated <code>Context</code> is then returned to <code>MainWindow</code> via the <code>CommandResult</code>, where it switches to displaying the specified list.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario of a user intending to view the list of activities.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches <strong>SplitWiser</strong> for the first time, which defaults to displaying the list of contacts.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>list a/</code> to prompt the app to display the full list of activities.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram demonstrates the role of the Logic and Model components in the execution of GUI commands. The role of the UI component is detailed in <a href="#ui-context-switching">UI context switching</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListSequenceDiagram.png" alt="ListSequenceDiagram">
+</div>
+<div class="title">Figure 5. Sequence diagram for listing all activities</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>ListCommand</code> and <code>ListCommandParser</code> should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="view-feature"><a class="link" href="#view-feature">View feature</a></h4>
+<div class="paragraph">
+<p>The View feature is intended to be used in tandem with the List feature, and displays the full details of the entry at a specified display index of the specified list. Note however, this takes into account the filter applied on the specified list, e.g. from the Find feature.</p>
+</div>
+<div class="paragraph">
+<p>During execution of the View command, a new <code>Context</code> is created, along with the <code>Person</code> or <code>Activity</code> to be viewed, obtained from the <code>Model</code>. The rest of the execution follows that of the List command.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario of a user intending to view the second activity.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches <strong>SplitWiser</strong> for the first time, which defaults to displaying the list of contacts.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>list a/</code> to prompt the app to display the full list of activities.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes <code>view a/2</code> to view the full details of the second activity, which succeeds if the list contains two or more activities.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-representing-the-current-context-state"><a class="link" href="#aspect-representing-the-current-context-state">Aspect: representing the current context state</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Creating an immutable <code>Context</code> class as a state container to store the appropriate information.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Lightweight; context state can be easily passed between components that require access, as it is encapsulated entirely within <code>Context</code>.</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Storing the <code>Context</code> state in a designated central component, e.g. the <code>ModelManager</code>, and exposing relevant methods to other components.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Trivial to implement.</p>
+</li>
+<li>
+<p>Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:37:06 UTC</div></div></div></body></html>

@@ -27,14 +27,12 @@
 <li><a href="#expense-class">3.3. Expense class</a></li>
 <li><a href="#create-expense-feature">3.4. Create expense feature</a></li>
 <li><a href="#debt-simplification-algorithm">3.5. Debt simplification algorithm</a></li>
-<li><a href="#list-feature">3.6. List feature</a></li>
+<li><a href="#gui-commands-list-and-view-features">3.6. GUI commands: List and View features</a></li>
 <li><a href="#find-feature">3.7. Find feature</a></li>
 <li><a href="#invite-disinvite-feature">3.8. Invite/Disinvite feature</a></li>
 <li><a href="#delete-feature">3.9. Delete feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.10. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.11. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.12. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.13. Configuration</a></li>
+<li><a href="#logging">3.10. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.11. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -179,10 +177,26 @@ image::LogicClassDiagram.png[]</p>
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+<p>The UI consists of a <code>MainWindow</code> class that comprises parts from two categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Common parts</em> that are displayed regardless of the current application context, e.g. <code>CommandBox</code>, <code>ResultDisplay</code>,<code>StatusBarFooter</code> etc.</p>
+</li>
+<li>
+<p><em>Contextual parts</em> that are only displayed in the respective application context, e.g. <code>ActivityListPanel</code>, <code>PersonDetailsPanel</code>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p>All of these UI classes, including <code>MainWindow</code> itself, inherit from the abstract <code>UiPart</code> class. The <em>common</em> UI classes are shown above <code>MainWindow</code> in the above class diagram, whereas the <em>contextual</em> UI classes are shown below <code>MainWindow</code>.</p>
+</div>
+<div class="paragraph">
+<p>All UI classes are built upon the JavaFX GUI framework. The structure of each UI part <code>X</code> is defined in a matching <code>X.fxml</code> file in the folder <code>src/main/resources/view</code>. For example, the layout of the <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>To create a visually cohesive and pleasant GUI, custom CSS styling rules were also employed to style each UI part individually. These stylesheets may be found as <code>.css</code> files in the folder <code>src/main/resources/view`</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component,</p>
@@ -193,7 +207,17 @@ image::LogicClassDiagram.png[]</p>
 <p>Executes user commands using the <code>Logic</code> component.</p>
 </li>
 <li>
-<p>Listens for changes to <code>Model</code> data so that the UI can be updated with the modified data.</p>
+<p>Listens for some changes to <code>Model</code> data so that relevant UI parts may be re-rendered with the modified data.</p>
+</li>
+<li>
+<p>Parses the returned <code>CommandResult</code> to perform appropriate additional actions, such as exiting the application or switching the contextual part being displayed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The behaviour of the <code>MainWindow</code> part is further detailed in <a href="#gui-commands-list-and-view-features">Section 3.6, &#8220;GUI commands: List and View features&#8221;</a>.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -903,51 +927,149 @@ Updating of the balance sheet and matrices by the expense command is performed i
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-feature"><a class="link" href="#list-feature">3.6. List feature</a></h3>
+<h3 id="gui-commands-list-and-view-features"><a class="link" href="#gui-commands-list-and-view-features">3.6. GUI commands: List and View features</a></h3>
+<div class="sect3">
+<h4 id="introduction"><a class="link" href="#introduction">3.6.1. Introduction</a></h4>
 <div class="paragraph">
-<p>The List mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
+<p>To reduce the amount of typing required of the user, it was decided that the app would support <em>contextual commands</em> that operate differently based on the data the user was currently viewing.</p>
 </div>
 <div class="paragraph">
-<p><code>Context</code> is an immutable utility class that describes the nature of the current view of the app. It stores state information about the <code>ContextType</code> as well as an optional <code>Object</code> of interest. A <code>Context</code> may be instantiated either by</p>
+<p>The List and View commands (collectively, <em>GUI commands</em>) were thus introduced to enable the user to switch between different views (panels) of the app, of which there are four:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>one of the factory methods <code>newListActivityContext</code> or <code>newListContactContext</code></p>
+<p>Contact list (<code>PersonListPanel</code>) - displays brief information (e.g. name, mobile number) of every tracked contact</p>
 </li>
 <li>
-<p>invoking the constructor with either an <code>Activity</code> or <code>Contact</code> of interest</p>
+<p>Activity list (<code>ActivityListPanel</code>) - displays brief information (e.g. title) of every tracked activity</p>
+</li>
+<li>
+<p>Contact details (<code>PersonDetailsPanel</code>) - displays full details of a specific contact, including that contact&#8217;s activity history</p>
+</li>
+<li>
+<p>Activity details (<code>ActivityDetailsPanel</code>) - displays full details of a specific activity, including all expenses, settlements and required transfers</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The <code>Context</code> class exposes relevant getter methods <code>Context#getType</code>, <code>Context#getActivity</code> and <code>Context#getContact</code>, and thus supports contextual behaviour of other commands.</p>
+<p>These mechanism of GUI commands is facilitated by a combination of three classes, <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="context-class"><a class="link" href="#context-class">3.6.2. Context class</a></h4>
+<div class="paragraph">
+<p><code>Context</code> is an immutable utility class introduced to describe the nature of the current view of the app. It stores state information about the current <code>ContextType</code> and an optional <code>Object</code> of interest, and is essential for the UI, Model and Logic components to maintain a consistent</p>
 </div>
 <div class="paragraph">
-<p>During execution, the List command creates the intended <code>Context</code> and updates the <code>Model</code> with it, along with the appropriate <code>FilteredList</code>. As <code>MainWindow</code> tracks both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.</p>
+<p>A <code>Context</code> may be instantiated in one of three ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>invoking the factory method <code>newListContactContext</code> or <code>newListContactContext</code>, which creates a new <code>Context</code> of type <code>LIST_ACTIVITY</code> or <code>LIST_CONTACT</code> respectively</p>
+</li>
+<li>
+<p>invoking the constructor with an <code>Activity</code>, which creates a new <code>Context</code> of type <code>VIEW_ACTIVITY</code> with that activity</p>
+</li>
+<li>
+<p>invoking the constructor with a <code>Person</code>, which creates a new <code>Context</code> of type <code>VIEW_CONTACT</code> with that contact</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContextClassDiagram.png" alt="ContextClassDiagram" width="400">
+</div>
+<div class="title">Figure 15. Class diagram of <code>Context</code> class and <code>ContextType</code> enum</div>
 </div>
 <div class="paragraph">
-<p>The updated <code>ContextType</code> of the <code>Model</code> is then returned to the <code>MainWindow</code> UI controller via the <code>CommandResult</code>, where it is used to switch the content displayed.</p>
+<p>The <code>Context</code> class exposes relevant getter methods <code>Context#getType</code>, <code>Context#getActivity</code> and <code>Context#getContact</code>. This enables contextual commands and the UI to retrieve the <code>Activity</code> or <code>Person</code> of interest, thus supporting contextual behaviour of the UI and other commands.</p>
+</div>
+<div class="paragraph">
+<p>During the execution of any command that changes the active view of the app, a new <code>Context</code> is created, with the relevant <code>Activity</code> or <code>Person</code>, if any. The command then updates the <code>Model</code> with the method <code>Model#setContext</code>.</p>
+</div>
+<div class="paragraph">
+<p>The updated <code>Context</code> of the <code>Model</code> is then wrapped as part of the <code>CommandResult</code> and returned to the <code>MainWindow</code>, which prompts the UI to perform additional actions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ui-context-switching"><a class="link" href="#ui-context-switching">3.6.3. UI context switching</a></h4>
+<div class="paragraph">
+<p>After executing a command successfully, the <code>MainWindow</code> receives a <code>CommandResult</code>, which it uses to determine if any additional actions need to be performed.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>CommandResult</code> contains a <code>Context</code>, then <code>MainWindow</code> switches the currently displayed panel out for the appropriate panel specified by the <code>ContextType</code>. The following activity diagram encapsulates the additional actions that may be performed as a result of <code>MainWindow</code> parsing the <code>CommandResult</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContextSwitchActivityDiagram.png" alt="ContextSwitchActivityDiagram">
+</div>
+<div class="title">Figure 16. Activity diagram for UI after successful command execution</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-feature"><a class="link" href="#list-feature">3.6.4. List feature</a></h4>
+<div class="paragraph">
+<p>During execution, the List command creates the specified <code>Context</code> (either of type <code>LIST_ACTIVITY</code> or <code>LIST_CONTACT</code>). It then updates the <code>Model</code> with the new <code>Context</code>, alongside the <code>FilteredList</code> of <code>Activity</code> or <code>Person</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>As <code>MainWindow</code> observes both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes. The updated <code>Context</code> is then returned to <code>MainWindow</code> via the <code>CommandResult</code>, where it switches to displaying the specified list.</p>
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenario of a user intending to view the list of activities.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the <code>SplitWiser</code> application for the first time, which defaults to displaying the list of contacts.</p>
+<p>Step 1. The user launches <strong>SplitWiser</strong> for the first time, which defaults to displaying the list of contacts.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes the command string <code>list a/</code> to prompt the app to display the full list of activities.</p>
+<p>Step 2. The user executes <code>list a/</code> to prompt the app to display the full list of activities.</p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram demonstrates the role of the respective components.</p>
+<p>The following sequence diagram demonstrates the role of the Logic and Model components in the execution of GUI commands. The role of the UI component is detailed in <a href="#ui-context-switching">Section 3.6.3, &#8220;UI context switching&#8221;</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ListSequenceDiagram.png" alt="ListSequenceDiagram">
 </div>
+<div class="title">Figure 17. Sequence diagram for listing all activities</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>ListCommand</code> and <code>ListCommandParser</code> should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.1. Design Considerations</a></h4>
+<h4 id="view-feature"><a class="link" href="#view-feature">3.6.5. View feature</a></h4>
+<div class="paragraph">
+<p>The View feature is intended to be used in tandem with the List feature, and displays the full details of the entry at a specified display index of the specified list. Note however, this takes into account the filter applied on the specified list, e.g. from the Find feature.</p>
+</div>
+<div class="paragraph">
+<p>During execution of the View command, a new <code>Context</code> is created, along with the <code>Person</code> or <code>Activity</code> to be viewed, obtained from the <code>Model</code>. The rest of the execution follows that of the List command.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario of a user intending to view the second activity.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches <strong>SplitWiser</strong> for the first time, which defaults to displaying the list of contacts.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>list a/</code> to prompt the app to display the full list of activities.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes <code>view a/2</code> to view the full details of the second activity, which succeeds if the list contains two or more activities.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.6. Design considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-representing-the-current-context-state"><a class="link" href="#aspect-representing-the-current-context-state">Aspect: representing the current context state</a></h5>
 <div class="ulist">
@@ -989,7 +1111,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 <p>The find mechanism is facilitated by the combination of three classes <code>MainWindow</code>, <code>Model</code> and <code>Context</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>Context</code> is an immutable utility class that describes the nature of the current view of the app. Refer to <a href="#list-feature">Section 3.6, &#8220;List feature&#8221;</a> for more information about <code>Context</code>.</p>
+<p><code>Context</code> is an immutable utility class that describes the nature of the current view of the app. Refer to <a href="#list-feature">Section 3.6.4, &#8220;List feature&#8221;</a> for more information about <code>Context</code>.</p>
 </div>
 <div class="paragraph">
 <p>During execution, the Find command checks the current <code>Context</code> from <code>Model</code>. If the current context is <code>LIST_ACTIVITY</code>, the command will search for <code>Activity</code> using the supplied search terms. If the current context is <code>LIST_CONTACT</code>, the command will search for <code>Contacts</code> using the supplied search terms. Otherwise, the command is used on invalid context and will throw an error. If the command is executed in a valid context, it will update the <code>FilteredList</code> to contain only the matching results. As <code>MainWindow</code> tracks both <code>FilteredList</code>, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.</p>
@@ -1016,7 +1138,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 <div class="content">
 <img src="images/FindCommandActivityDiagram.png" alt="FindCommandActivityDiagram">
 </div>
-<div class="title">Figure 15. Activity diagram for find command</div>
+<div class="title">Figure 18. Activity diagram for find command</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.1. Design Considerations</a></h4>
@@ -1311,234 +1433,14 @@ The activity diagram for deletion of expense and contact are omitted as they are
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.10. [Proposed] Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.10.1. Proposed Implementation</a></h4>
-<div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
-It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> and <code>Model#redoAddressBook()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState0.png" alt="UndoRedoState0">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState1.png" alt="UndoRedoState1">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState2.png" alt="UndoRedoState2">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState3.png" alt="UndoRedoState3">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The lifeline for <code>UndoCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState4.png" alt="UndoRedoState4">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState5.png" alt="UndoRedoState5">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/CommitActivityDiagram.png" alt="CommitActivityDiagram">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.10.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.11. [Proposed] Data Encryption</a></h3>
-<div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.12. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.10. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.13, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.11, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1569,7 +1471,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.13. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.11. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2053,7 +1955,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="content">
 <img src="images/NumericalError.png" alt="NumericalError">
 </div>
-<div class="title">Figure 16. Example activity</div>
+<div class="title">Figure 19. Example activity</div>
 </div>
 <div class="paragraph">
 <p>Here, if Alex attempts to settle the debt with David using <code>settle p/alex p/david</code>, the debt re-calculations will result the debt still being non-zero. In fact, if the user attempts executes another <code>settle p/alex p/david</code>, the debt still remains!</p>
@@ -2169,4 +2071,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:23:31 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:37:06 UTC</div></div></div></body></html>
