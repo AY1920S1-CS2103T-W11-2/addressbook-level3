@@ -25,8 +25,8 @@
 <li><a href="#view-a-contact-or-activity-code-view-code">4.3. View a contact or activity : <code>view</code></a></li>
 <li><a href="#create-new-contact-code-contact-code">4.4. Create new contact: <code>contact</code></a></li>
 <li><a href="#create-new-activity-code-activity-code">4.5. Create new activity: <code>activity</code></a></li>
-<li><a href="#add-contacts-to-an-activity-code-invite-code">4.6. Add contacts to an activity: <code>invite</code></a></li>
-<li><a href="#remove-contacts-from-an-activity-code-disinvite-code">4.7. Remove contacts from an activity: <code>disinvite</code></a></li>
+<li><a href="#inviting-contacts-to-an-activity-code-invite-code">4.6. Inviting contacts to an activity: <code>invite</code></a></li>
+<li><a href="#disinviting-contacts-from-an-activity-code-disinvite-code">4.7. Disinviting contacts from an activity: <code>disinvite</code></a></li>
 <li><a href="#add-expenses-to-an-activity-code-expense-code">4.8. Add expenses to an activity : <code>expense</code></a></li>
 <li><a href="#settle-debts-in-an-activity-code-settle-code">4.9. Settle debts in an activity : <code>settle</code></a></li>
 <li><a href="#edit-an-existing-contact-or-activity-code-edit-code">4.10. Edit an existing contact or activity : <code>edit</code></a></li>
@@ -321,52 +321,120 @@ Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu'
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-contacts-to-an-activity-code-invite-code"><a class="link" href="#add-contacts-to-an-activity-code-invite-code">4.6. Add contacts to an activity: <code>invite</code></a></h3>
+<h3 id="inviting-contacts-to-an-activity-code-invite-code"><a class="link" href="#inviting-contacts-to-an-activity-code-invite-code">4.6. Inviting contacts to an activity: <code>invite</code></a></h3>
 <div class="paragraph">
-<p>Adds a contact in the contact list to the currently viewed activity. Multiple contacts can also be added at once.
-If there is no current viewed activity, then the contact cannot be added and there will be an error.
-If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message indicating non-unique search result will be shown instead.</p>
+<p>This command invites the contacts specified to the current viewed activity.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>invite p/PERSON &#8230;&#8203;</code></p>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Example:<br>
+Suppose you have already created an activity with Alice, Bob and Carl in it.<br>
+<code>activity t/Holiday Trip p/Alice p/Bob p/Carl</code></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>invite p/John Doe p/Mary</code><br>
-Adds both John Doe and Mary to the current viewed activity.</p>
-</li>
-<li>
-<p><code>invite p/Mary p/David p/Alex</code><br>
-Adds David and Alex to the current viewed activity if they are found in the contact list. Mary will not be added into the activity again since she in already in the activity, a message indicating her existence in the activity will be shown instead.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>And you have friends that wants to join an activity midway.</p>
+</div>
+<div class="paragraph">
+<p>To invite:</p>
+</div>
+<div class="paragraph">
+<p>Step 1: Type <code>invite</code> into the command box and specify the contacts you want to invite from the contact list with the <code>p/</code> prefix e.g. <code>invite p/Mary p/John p/Carl</code> and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/InviteCommand.png" alt="InviteCommand">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2: Observe the output in result box and the activity details box.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/InviteOutput.png" alt="InviteOutput">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>The <code>invite</code> command only invites to current viewed activity.</strong><br>
+if there is no current viewed activity, there will be an error.<br>
+<br>
+<strong>The <code>invite</code> command only invites contact that exist in the contact list.</strong><br>
+If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message will be shown.<br>
+<br>
+<strong>Multiple contacts can be invited at once.</strong><br>
+<br>
+<strong>Contacts that already exist in activity cannot be invited again.</strong>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="remove-contacts-from-an-activity-code-disinvite-code"><a class="link" href="#remove-contacts-from-an-activity-code-disinvite-code">4.7. Remove contacts from an activity: <code>disinvite</code></a></h3>
+<h3 id="disinviting-contacts-from-an-activity-code-disinvite-code"><a class="link" href="#disinviting-contacts-from-an-activity-code-disinvite-code">4.7. Disinviting contacts from an activity: <code>disinvite</code></a></h3>
 <div class="paragraph">
-<p>Removes a contact from the currently viewed activity. Multiple contacts can also be removed at once.
-If there is no current viewed activity, then the contact cannot be removed and there will be an error.
-If the specified contact does not exist in the current activity, a warning message indicating that the contact does not exist in the current activity will be shown instead.
-If the specified contact is involved in an expense, he cannot be removed since he does not owe money to anyone and no one else owes him money and a warning message indicating that he is involved in an expense will be shown instead.</p>
+<p>This command disinvites the contacts specified from the current viewed activity.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>disinvite p/PERSON &#8230;&#8203;</code></p>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Example:<br>
+Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>disinvite p/John Doe p/Mary</code><br>
-Removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.</p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="images/DisinviteExample.png" alt="DisinviteExample">
+</div>
+</div>
+<div class="paragraph">
+<p>And you feel that the activity has too many participants that do not participate in any event, thus having no shared expense and you decided to remove them.</p>
+</div>
+<div class="paragraph">
+<p>To disinvite:</p>
+</div>
+<div class="paragraph">
+<p>Step 1: Type <code>disinvite</code> into the command box and specify the contacts you want to disinvite from the activity with the <code>p/</code> prefix e.g. <code>disinvite p/Mary p/John p/Carl</code> and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DisinviteCommand.png" alt="DisinviteCommand">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2: Observe the output in result box and the activity details box.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DisinviteOutput.png" alt="DisinviteOutput">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>The <code>disinvite</code> command only disinvites from current viewed activity.</strong><br>
+if there is no current viewed activity, there will be an error.<br>
+<br>
+<strong>The <code>disinvite</code> command only disinvites contact that exist in the activity.</strong><br>
+If the specified contact does not exist in the activity, then a warning message will be shown.<br>
+<br>
+<strong>Multiple contacts can be disinvited at once.</strong><br>
+<br>
+<strong>Contacts that involve in expenses cannot be disinvited.</strong><br>
+If a contact is involved in any expense, he cannot be disinvited.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -600,39 +668,19 @@ If currently viewing list of activities, returns activities (e.g <code>lunch wit
 <p>Deletes the contact/activity/expense at the specified index from the current display.<br></p>
 </div>
 <div class="paragraph">
-<p>If current display is listing contacts <code>list c/</code>, the contact at that specified index will be deleted if he/she is not involved in any activities.</p>
+<p>Format: <code>delete INDEX</code></p>
 </div>
 <div class="paragraph">
-<p>If current display is listing activities <code>list a/</code>, the activity at that specified index will be deleted.</p>
+<p>If current display is listing contacts e.g. <code>list c/</code>, the contact at that specified <code>INDEX</code> will be deleted if he/she is not involved in any activities.</p>
 </div>
 <div class="paragraph">
-<p>If viewing an activity instead <code>view a/1</code>, it will soft-delete an expense* by index.</p>
+<p>If current display is listing activities e.g. <code>list a/</code>, the activity at that specified <code>INDEX</code> will be deleted.</p>
+</div>
+<div class="paragraph">
+<p>If viewing an activity instead e.g. <code>view a/1</code>, it will soft-delete the expense* at that <code>INDEX</code>.</p>
 </div>
 <div class="paragraph">
 <p>If the current display is not any of the above displays mentioned, error will be thrown.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>delete INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Deletes the entry at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed list of contacts/activities.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>*Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view, and moved to the bottom of the list.</p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -649,9 +697,27 @@ If viewing the list of activities, deletes the 1st activity by index.<br></p>
 </li>
 <li>
 <p><code>delete 1</code><br>
-If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.</p>
+If viewing a particular activity, fades (soft-deletes) the 1st expense by index.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Deletes the entry at the specified <code>INDEX</code>.</strong><br>
+<br>
+<strong>The <code>INDEX</code> refers to the index number shown in the displayed list of contacts/activities/expenses.</strong><br>
+<br>
+<strong>The <code>INDEX</code> must be a positive integer 1, 2, 3, &#8230;&#8203;</strong><br>
+<br>
+<strong>Expenses cannot be completely deleted. It will instead be faded (but still visible) in the activity view.</strong>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -790,4 +856,4 @@ This operation is very dangerous! The person might be included in expenses or ot
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 01:17:55 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 01:27:01 UTC</div></div></div></body></html>

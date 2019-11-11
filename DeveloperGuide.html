@@ -971,7 +971,7 @@ It extends <code>AddressBook</code> with an <code>ActivityBook</code>, stored in
 <p>Step 2. The user executes <code>activity t/breakfast p/David</code> command to create an activity named breakfast with <code>David</code> as the sole participant which is stored in the <code>activityList</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>invite p/Louis p/Mary&#8230;&#8203;</code> to invite more participants into the current viewed activity. The <code>invite</code> command calls <code>Activity#invite()</code>, inviting more participants into the activity. The <code>activityList</code> will then be modified with the newly invited participants which is then stored in the <code>ActivityBook</code>.</p>
+<p>Step 3. The user executes <code>invite p/Louis p/Mary&#8230;&#8203;</code> to invite more participants into the current viewed activity. The <code>invite</code> command calls <code>Activity#invite()</code> which then modifies the <code>activityList</code> with the new participants and is stored in the <code>ActivityBook</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the invite operation works:</p>
@@ -994,11 +994,10 @@ The lifeline for <code>InviteCommand</code> should end at the destroy marker (X)
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Therefore, it is perfectly fine to remove that person from the activity since he does not owe money to anyone and no one else owes him money.
-Hence the user decides to remove that person by executing the <code>disinvite</code> command.</p>
+<p>Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Hence the user decides to remove that person by executing the <code>disinvite</code> command.</p>
 </div>
 <div class="paragraph">
-<p>Step 5. The user executes <code>disinvite p/Louis p/David &#8230;&#8203;</code> to remove participant(s) from the current activity. The <code>disinvite</code> command calls <code>Activity#disinvite()</code>, removing participants from the activity. The <code>activityList</code> will then be modified due to a change in participants which is then stored in the <code>ActivityBook</code>.</p>
+<p>Step 5. The user executes <code>disinvite p/Louis p/David &#8230;&#8203;</code> to remove participant(s) from the current activity. The <code>disinvite</code> command calls <code>Activity#disinvite()</code> which then modifies the <code>activityList</code> and is stored in the <code>ActivityBook</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1017,7 +1016,7 @@ The sequence diagram for the disinvite operation is omitted as it is similar to 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/InviteActivityDiagram.png" alt="InviteActivityDiagram">
+<img src="images/InviteActivityDiagram.png" alt="InviteActivityDiagram" width="183" height="300">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1133,14 +1132,14 @@ The items that will be deleted can be contact/activity/expense depending on your
 <p>Step 6. The user views an activity at the second index using <code>view a/2</code></p>
 </div>
 <div class="paragraph">
-<p>Step 7. The user executes <code>delete 1</code> again, but this time the expense at the first index will be deleted instead.</p>
+<p>Step 7. The user executes <code>delete 1</code> again, but this time the expense at the first index will be <strong>soft</strong> deleted instead.</p>
 </div>
 <div class="paragraph">
 <p>The following activity diagram summarizes what happens when a user executes a delete command for deletion of activity:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/DeleteContactActivityDiagram.png" alt="DeleteContactActivityDiagram">
+<img src="images/DeleteContactActivityDiagram.png" alt="DeleteContactActivityDiagram" width="229" height="300">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -2069,4 +2068,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 01:17:55 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 01:27:01 UTC</div></div></div></body></html>
